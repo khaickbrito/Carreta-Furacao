@@ -7,6 +7,7 @@ package Model;
 
 import com.sun.glass.ui.Cursor;
 import java.awt.AlphaComposite;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.JComponent;
@@ -30,8 +31,9 @@ public class Mapa extends JFrame {
 
     }
 
-    public void inserirTrem(){
-        new Trem();
+    public void inserirTrem(Graphics g){
+        Trem t = new Trem(g, 270, 170);
+        new Thread(t).start();
     }
     @Override
     public void paint(Graphics g) {
@@ -39,7 +41,7 @@ public class Mapa extends JFrame {
         g2d.drawRect(150, 300, 250, 250);
         g2d.drawRect(400, 300, 250, 250);
         g2d.drawRect(275, 175, 250, 125);
-        inserirTrem();
+        inserirTrem(g2d);
 
     }
 
