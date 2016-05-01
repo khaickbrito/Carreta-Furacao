@@ -3,10 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package oQueEuAprendiDoRmi;
+package Util;
 
-import oQueEuAprendiDoRmi.CalculadoraServerInterface;
-import oQueEuAprendiDoRmi.Carro;
+import Util.RmiServerInterface;
 import java.rmi.NotBoundException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -15,23 +14,23 @@ import java.rmi.registry.Registry;
  *
  * @author victor
  */
-public class CalculadoraCliente {
-
+public class TremCliente {
+    private static Registry reg1;
+    private static Registry reg2;
+    
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
     try {
-      Registry registry = LocateRegistry.getRegistry("localhost", 12345);
-      CalculadoraServerInterface c = (CalculadoraServerInterface)
-        registry.lookup("CalculadoraServerInterfaceImpl");
+      reg1 = LocateRegistry.getRegistry("localhost", 12345);
+      RmiServerInterface c = (RmiServerInterface)
+        reg1.lookup("CalculadoraServerInterfaceImpl");
       System.out.println("O objeto servidor " + c + " foi encontrado com sucesso.\n");
 
       // vamos efetuar uma soma?
       System.out.println("A soma de 2 + 5 é: " + c.somar(2, 6));
-     
-      Carro car = new Carro("mustang");
-      c.imprimirNomeCarro(car);
+
     }
     catch(Exception ex){
       System.out.println(ex);

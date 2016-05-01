@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package oQueEuAprendiDoRmi;
+package Util;
 
 import java.rmi.registry.*;
 /**
  *
  * @author victor
  */
-public class CalculadoraServidor {
+public class RmiServidor {
 
     /**
      * @param args the command line arguments
@@ -19,7 +19,7 @@ public class CalculadoraServidor {
         try {
             
             Registry registry = LocateRegistry.createRegistry(12345);
-            CalculadoraServerInterface csi = new CalculadoraServerInterfaceImpl(registry);
+            RmiServerInterface csi = new RmiServer(registry);
             registry.rebind("CalculadoraServerInterfaceImpl", csi);
             System.out.println("Servidor Calculadora " + csi
                     + " registrado e pronto para aceitar solicitações.");

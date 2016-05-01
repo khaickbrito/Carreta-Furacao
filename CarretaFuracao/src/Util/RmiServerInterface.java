@@ -3,20 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package oQueEuAprendiDoRmi;
+package Util;
 
 
 import java.rmi.*;
 import java.rmi.registry.Registry;
 
-public interface CalculadoraServerInterface extends Remote{
+public interface RmiServerInterface extends Remote{
     // método público que recebe dois valores inteiros e
     // retorna sua soma
     public int somar(int a, int b) throws RemoteException;
     
-    public void fecharServidor(String s) throws RemoteException;
+    public boolean sendDistance(double dist) throws RemoteException;
     
-    public void imprimirNomeCarro(Carro car) throws RemoteException;
-//    public int pqp();
+    public boolean sendSelfPosition(double x, double y) throws RemoteException;
+    
+    public boolean sendSelfVelocity(double veloc) throws RemoteException;
+    
+    public boolean changeTrainVelocity(double newVeloc) throws RemoteException;
     
 }

@@ -32,7 +32,8 @@ public class Trem{
     private Mapa mapa;
     public int x;
     public int y;
-    public long velocidade = 15;
+    public long maxVelocidade = 10;
+    public long velocidade = 10;
     private int cont;
     private JButton botao;
     private JTextField campoVelocidade;
