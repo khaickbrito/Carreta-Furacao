@@ -11,6 +11,12 @@ package Controller;
  */
 public class TremController {
     
+    private static TremController instance = new TremController();
     
+    
+    
+    public static TremController getInstance(){
+        return instance;
+    }
     
 }

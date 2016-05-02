@@ -5,6 +5,7 @@
  */
 package Util;
 
+import Controller.TremController;
 import java.rmi.*;
 import java.rmi.registry.Registry;
 import java.rmi.server.*;
@@ -12,11 +13,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class RmiServer extends UnicastRemoteObject implements RmiServerInterface{  
-    private Registry r;
+    private TremController controller;
     
     public RmiServer() throws RemoteException{
         // construtor padrão
-       
+        this.controller = TremController.getInstance();  
     }
     
     @Override
