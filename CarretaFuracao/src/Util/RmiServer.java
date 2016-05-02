@@ -54,5 +54,10 @@ public class RmiServer extends UnicastRemoteObject implements RmiServerInterface
     public boolean sendToken() throws RemoteException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public String[] getTrainsIp() throws RemoteException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

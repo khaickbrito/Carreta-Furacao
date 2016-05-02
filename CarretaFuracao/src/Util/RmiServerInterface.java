@@ -25,4 +25,6 @@ public interface RmiServerInterface extends Remote{
     public boolean sendMaxSpeed(int Maxspeed) throws RemoteException;
     
     public boolean sendToken() throws RemoteException;
+    
+    public String[] getTrainsIp() throws RemoteException;
 }

@@ -28,27 +28,41 @@ public class TremCliente extends JFrame{
     private static Registry reg1;
     private static Registry reg2;
     private static Registry selfReg;
+    private static Registry serverReg;
+    
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         try {
-            selfReg = LocateRegistry.createRegistry(1345);
-           
-            String ipServidor = CaixaDeTexto.pedirIP();
             
-            System.out.println(ipServidor);
-            RmiServerInterface meuObjeto = new RmiServer();
-            selfReg.rebind("RmiServer", meuObjeto);
+            TremController controller = TremController.getInstance();
             
-            reg1 = LocateRegistry.getRegistry(ipServidor, 12345);
-         
-            RmiServerInterface trem1 = (RmiServerInterface) reg1.lookup("RmiServer");
             
-            reg2 = LocateRegistry.getRegistry("localhost", 12345);
-            
-            RmiServerInterface trem2 = (RmiServerInterface) reg2.lookup("RmiServer");
+//            selfReg = LocateRegistry.createRegistry(1345);
+//           
+//            String ipServidor = CaixaDeTexto.pedirIP();
+//            
+//            System.out.println(ipServidor);
+//            RmiServerInterface meuObjeto = new RmiServer();
+//            selfReg.rebind("RmiServer", meuObjeto);
+//            
+//            serverReg = LocateRegistry.getRegistry(ipServidor, 12345);
+//            
+//            RmiServerInterface servidor = (RmiServerInterface) serverReg.lookup("RmiServer");
+//            
+//            String[] trens = servidor.getTrainsIp();
+//            
+//            
+//            
+//            reg1 = LocateRegistry.getRegistry(ipServidor, 12345);
+//         
+//            RmiServerInterface trem1 = (RmiServerInterface) reg1.lookup("RmiServer");
+//            
+//            reg2 = LocateRegistry.getRegistry("localhost", 12345);
+//            
+//            RmiServerInterface trem2 = (RmiServerInterface) reg2.lookup("RmiServer");
     
             
             

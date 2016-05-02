@@ -28,7 +28,7 @@ public class Trem {
     public long maxSystemSpeed = 10;
     public long maxSpeed = 10;
     public int speed = 1;
-
+    public boolean isIntanciado = false;
    // private int cont;
     private JButton botao;
     private JTextField campoVelocidade;
@@ -41,6 +41,7 @@ public class Trem {
         this.mapa = mapa;
         this.x = x;
         this.y = y;
+        this.isIntanciado = true;
         new Thread(new TremThread()).start();
 
 //        campoVelocidade = new JTextField();
