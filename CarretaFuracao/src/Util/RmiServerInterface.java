@@ -20,11 +20,15 @@ public interface RmiServerInterface extends Remote{
     
     public boolean sendSelfVelocity(double veloc) throws RemoteException;
     
-    public boolean changeTrainVelocity(double newVeloc) throws RemoteException;
+    public boolean changeTrainVelocity(int newVeloc) throws RemoteException;
     
     public boolean sendMaxSpeed(int Maxspeed) throws RemoteException;
     
     public boolean sendToken() throws RemoteException;
     
     public String[] getTrainsIp() throws RemoteException;
+    
+    public void printFuncionou() throws RemoteException;
+    
+    
 }

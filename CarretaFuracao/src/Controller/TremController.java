@@ -37,8 +37,12 @@ public class TremController {
 
     }
     
-    public void changeSpeed(int i, int speed){
-        trem[i].setSpeed(speed);
+    public void printFuncionou(){
+        System.out.println("Funcionou");
+    }
+    
+    public boolean changeSpeed(int i, int speed){
+        return trem[i].setSpeed(speed);
     }
 
     public static TremController getInstance() {

@@ -9,9 +9,13 @@ import Controller.TremController;
 import Util.RmiServerInterface;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.rmi.AccessException;
 import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -40,13 +44,14 @@ public class TremCliente extends JFrame{
             TremController controller = TremController.getInstance();
             
             
-//            selfReg = LocateRegistry.createRegistry(1345);
-//           
+            
+            selfReg = LocateRegistry.createRegistry(1345);
+           
 //            String ipServidor = CaixaDeTexto.pedirIP();
 //            
 //            System.out.println(ipServidor);
-//            RmiServerInterface meuObjeto = new RmiServer();
-//            selfReg.rebind("RmiServer", meuObjeto);
+            RmiServerInterface meuObjeto = new RmiServer();
+            selfReg.rebind("RmiServer", meuObjeto);
 //            
 //            serverReg = LocateRegistry.getRegistry(ipServidor, 12345);
 //            
@@ -69,6 +74,16 @@ public class TremCliente extends JFrame{
 
         } catch (Exception ex) {
             System.out.println(ex);
+            try {
+                reg1 = LocateRegistry.getRegistry("localhost", 1345);
+                RmiServerInterface s = (RmiServerInterface)reg1.lookup("RmiServer");
+                s.printFuncionou();
+            } catch (RemoteException ex1) {
+                Logger.getLogger(TremCliente.class.getName()).log(Level.SEVERE, null, ex1);
+            } catch (NotBoundException ex1) {
+                Logger.getLogger(TremCliente.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+            
         }
     }
 

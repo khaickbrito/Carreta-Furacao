@@ -12,6 +12,15 @@ package Util;
 public class facade {
     
     private RmiServer[] classeTrens = new RmiServer[3];
+    private static int myId;
+    
+    public facade(int id){
+        myId = id;
+    }
+    
+    public static int getMyId(){
+        return myId;
+    }
     
     public void addRmi(RmiServer r){
         for (int i = 0; i < 3; i++) {

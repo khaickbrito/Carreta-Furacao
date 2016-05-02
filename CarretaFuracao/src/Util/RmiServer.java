@@ -41,8 +41,9 @@ public class RmiServer extends UnicastRemoteObject implements RmiServerInterface
     }
 
     @Override
-    public boolean changeTrainVelocity(double newVeloc) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean changeTrainVelocity(int newVeloc) throws RemoteException {
+        controller.changeSpeed(facade.getMyId(), newVeloc);
+        return true;
     }
 
     @Override
@@ -58,6 +59,11 @@ public class RmiServer extends UnicastRemoteObject implements RmiServerInterface
     @Override
     public String[] getTrainsIp() throws RemoteException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void printFuncionou() throws RemoteException {
+        controller.printFuncionou();
     }
     
 }
