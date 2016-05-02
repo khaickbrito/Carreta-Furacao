@@ -6,52 +6,68 @@
 package Util;
 
 import Controller.TremController;
-import Util.RmiServerInterface;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.rmi.AccessException;
-import java.rmi.NotBoundException;
-import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
 
 /**
  *
  * @author victor
  */
-public class TremCliente extends JFrame{
+public class TremCliente extends JFrame {
 
     private static Registry reg1;
     private static Registry reg2;
     private static Registry selfReg;
     private static Registry serverReg;
-    
+    private static int porta = 10100;
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        try {
-            
-            TremController controller = TremController.getInstance();
-            
-            
-            
-            selfReg = LocateRegistry.createRegistry(1345);
-           
+        int myport = 0;
+        boolean continua = true;
+        while (continua) {
+            try {
+
+                TremController controller = TremController.getInstance();
+                if (myport == 0) {
+                    selfReg = LocateRegistry.createRegistry(porta);
+                    myport = porta;
+                }else{
+                    if (porta == 10100) {
+                    System.out.println("2");
+                    porta = 10101;
+                } else if (porta == 10101) {
+                    System.out.println("3");
+                    porta = 10102;
+                } else {
+                    System.out.println("4");
+                    porta = 10100;
+                }
+                }
 //            String ipServidor = CaixaDeTexto.pedirIP();
 //            
 //            System.out.println(ipServidor);
-            RmiServerInterface meuObjeto = new RmiServer();
-            selfReg.rebind("RmiServer", meuObjeto);
+                RmiServerInterface meuObjeto = new RmiServer();
+                selfReg.rebind("RmiServer", meuObjeto);
+                if (myport == porta) {
+                    continue;
+                }
+                reg1 = LocateRegistry.getRegistry(porta);
+
+                if (myport == porta) {
+                    continue;
+                }
+                reg2 = LocateRegistry.getRegistry(porta);
+
+                RmiServerInterface trem1 = (RmiServerInterface) reg1.lookup("RmiServer");
+
+                RmiServerInterface trem2 = (RmiServerInterface) reg2.lookup("RmiServer");
+
+                continua = false;
+
 //            
 //            serverReg = LocateRegistry.getRegistry(ipServidor, 12345);
 //            
@@ -68,23 +84,25 @@ public class TremCliente extends JFrame{
 //            reg2 = LocateRegistry.getRegistry("localhost", 12345);
 //            
 //            RmiServerInterface trem2 = (RmiServerInterface) reg2.lookup("RmiServer");
-    
-            
-            
+            } catch (Exception ex) {
+                System.out.println("1");
+                if (porta == 10100) {
+                    System.out.println("2");
+                    porta = 10101;
+                } else if (porta == 10101) {
+                    System.out.println("3");
+                    porta = 10102;
+                } else {
+                    System.out.println("4");
+                    porta = 10100;
+                }
 
-        } catch (Exception ex) {
-            System.out.println(ex);
-            try {
-                reg1 = LocateRegistry.getRegistry("localhost", 1345);
-                RmiServerInterface s = (RmiServerInterface)reg1.lookup("RmiServer");
-                s.printFuncionou();
-            } catch (RemoteException ex1) {
-                Logger.getLogger(TremCliente.class.getName()).log(Level.SEVERE, null, ex1);
-            } catch (NotBoundException ex1) {
-                Logger.getLogger(TremCliente.class.getName()).log(Level.SEVERE, null, ex1);
             }
-            
         }
+        
+        
+        
+    
     }
 
 }
