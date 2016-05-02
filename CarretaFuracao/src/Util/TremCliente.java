@@ -17,12 +17,15 @@ import java.rmi.registry.Registry;
 public class TremCliente {
     private static Registry reg1;
     private static Registry reg2;
-    
+    private static Registry selfReg;
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
     try {
+      selfReg = LocateRegistry.createRegistry(12345);
+      
+      RmiServerInterface meuObjeto = new RmiServer();
       reg1 = LocateRegistry.getRegistry("localhost", 12345);
       RmiServerInterface c = (RmiServerInterface)reg1.lookup("CalculadoraServerInterfaceImpl");
       System.out.println("O objeto servidor " + c + " foi encontrado com sucesso.\n");
@@ -33,7 +36,6 @@ public class TremCliente {
     }
     catch(Exception ex){
       System.out.println(ex);
-     
     }
   }
     

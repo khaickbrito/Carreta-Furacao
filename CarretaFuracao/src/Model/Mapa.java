@@ -18,6 +18,7 @@ import javax.swing.JFrame;
  * @author victor
  */
 public class Mapa extends JFrame {
+    private static Trem[] trem;
     private static Trem trem1;
     private static Trem trem2;
     private static Trem trem3;

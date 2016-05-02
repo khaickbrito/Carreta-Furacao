@@ -14,9 +14,9 @@ import java.util.logging.Logger;
 public class RmiServer extends UnicastRemoteObject implements RmiServerInterface{  
     private Registry r;
     
-    public RmiServer(Registry r) throws RemoteException{
+    public RmiServer() throws RemoteException{
         // construtor padrão
-        this.r = r;
+       
     }
     
     @Override

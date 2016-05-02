@@ -17,9 +17,8 @@ public class RmiServidor {
      */
     public static void main(String[] args) {
         try {
-            
             Registry registry = LocateRegistry.createRegistry(12345);
-            RmiServerInterface csi = new RmiServer(registry);
+            RmiServerInterface csi = new RmiServer();
             registry.rebind("CalculadoraServerInterfaceImpl", csi);
             System.out.println("Servidor Calculadora " + csi
                     + " registrado e pronto para aceitar solicitações.");
