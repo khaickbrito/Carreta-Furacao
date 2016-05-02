@@ -7,9 +7,12 @@ package Util;
 
 import Controller.TremController;
 import Util.RmiServerInterface;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.rmi.NotBoundException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -32,28 +35,15 @@ public class TremCliente extends JFrame{
     public static void main(String[] args) {
         try {
             selfReg = LocateRegistry.createRegistry(1345);
-            JPanel panel = new JPanel(null);
-            panel.setSize(300, 100);
+           
+            String ipServidor = CaixaDeTexto.pedirIP();
             
-            JLabel pergunta = new JLabel("Digite o IP do trem 1");
-            pergunta.setBounds(0, 0, 300, 100);
-            
-            JTextField caixaDeTexto = new JTextField();
-            
-            JFrame frame = new JFrame("Trem 1");
-            
-            panel.add(pergunta);
-            panel.add(caixaDeTexto);
-            
-            frame.add(panel);
-            frame.setSize(330, 110);
-            frame.setVisible(true);
+            System.out.println(ipServidor);
             RmiServerInterface meuObjeto = new RmiServer();
             selfReg.rebind("RmiServer", meuObjeto);
             
-            
-            
-            reg1 = LocateRegistry.getRegistry("localhost", 12345);
+            reg1 = LocateRegistry.getRegistry(ipServidor, 12345);
+         
             RmiServerInterface trem1 = (RmiServerInterface) reg1.lookup("RmiServer");
             
             reg2 = LocateRegistry.getRegistry("localhost", 12345);
