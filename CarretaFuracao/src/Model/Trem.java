@@ -19,12 +19,20 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JTextField;
 import javax.swing.plaf.basic.BasicArrowButton;
+import static java.lang.Thread.sleep;
+import static java.lang.Thread.sleep;
+import static java.lang.Thread.sleep;
+import static java.lang.Thread.sleep;
+import static java.lang.Thread.sleep;
+import static java.lang.Thread.sleep;
+import static java.lang.Thread.sleep;
 
 /**
  *
  * @author victor
  */
-public class Trem{
+public class Trem {
+    private boolean token;
     private int maxX;
     private int minX;
     private int maxY;
@@ -32,9 +40,11 @@ public class Trem{
     private Mapa mapa;
     public int x;
     public int y;
-    public long maxVelocidade = 10;
-    public long velocidade = 10;
-    private int cont;
+    public long maxSystemSpeed = 10;
+    public long maxSpeed = 10;
+    public int speed = 1;
+
+   // private int cont;
     private JButton botao;
     private JTextField campoVelocidade;
 
@@ -47,7 +57,7 @@ public class Trem{
         this.x = x;
         this.y = y;
         new Thread(new TremThread()).start();
-        
+
 //        campoVelocidade = new JTextField();
 //        campoVelocidade.setText("Digite");
 //        botao = new JButton();
@@ -67,24 +77,73 @@ public class Trem{
     public JTextField getCampoVelocidade() {
         return campoVelocidade;
     }
+
+    public double getVelocidadeMetrosPorSegundo(){
+        return (speed*200);
+    }
     
-    private class TremThread implements Runnable{
-        
+    public void setMaxSpeed(int newSpeed){
+        speed = newSpeed;
+    }
+    
+    public boolean setSpeed(int newSpeed){
+        if(token == true && newSpeed <= maxSystemSpeed){
+            this.speed = newSpeed/2;
+            return true;
+        }else if (token == false && newSpeed <= maxSpeed){
+            this.speed = newSpeed;
+            return true;
+        }else
+            return false;
+    }
+    
+    private class TremThread implements Runnable {
+
         @Override
         public void run() {
-            while(true){
-                if(x != maxX && y == minY){
-                    x++;
-                }else if(x != minX && y == maxY){
-                    x--;
-                }else if(x == maxX && y != maxY){
-                    y++;
-                }else if(x == minX && y != minY){
-                    y--;
+            int auxX;
+            int auxY;
+            while (true) {
+                if (x != maxX && y == minY) {
+                    if ((x + speed) > maxX) {
+                        auxX = maxX - x;
+                        auxY = speed - auxX;
+                        x = maxX;
+                        y += auxY;
+                    } else {
+                        x += speed;
+                    }
+                } else if (x != minX && y == maxY) {
+                    if ((x - speed) < minX) {
+                        auxX = x - minX;
+                        auxY = speed - auxX;
+                        x = minX;
+                        y -= auxY;
+                    } else {
+                        x -= speed;
+                    }
+                } else if (x == maxX && y != maxY) {
+                    if ((y + speed) > maxY) {
+                        auxY = maxY - y;
+                        auxX = speed - auxY;
+                        y = maxY;
+                        x -= auxX;
+                    } else {
+                        y += speed;
+                    }
+                } else if (x == minX && y != minY) {
+                    if ((y - speed) < minY) {
+                        auxY = y - minY;
+                        auxX = speed - auxY;
+                        y = minY;
+                        x += auxX;
+                    } else {
+                        y -= speed;
+                    }
                 }
                 mapa.repaint();
                 try {
-                    sleep(velocidade);
+                    sleep(10);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(Trem.class.getName()).log(Level.SEVERE, null, ex);
                 }
