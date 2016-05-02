@@ -52,6 +52,7 @@ public class Mapa extends JFrame {
         g2d.fillOval(trem1.x, trem1.y, 10, 10);
         g2d.fillOval(trem2.x, trem2.y, 10, 10);
         g2d.fillOval(trem3.x, trem3.y, 10, 10);
+        
     }
 
 }

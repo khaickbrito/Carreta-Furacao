@@ -22,4 +22,7 @@ public interface RmiServerInterface extends Remote{
     
     public boolean changeTrainVelocity(double newVeloc) throws RemoteException;
     
+    public boolean sendMaxSpeed(int Maxspeed) throws RemoteException;
+    
+    public boolean sendToken() throws RemoteException;
 }

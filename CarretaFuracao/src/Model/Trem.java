@@ -74,6 +74,14 @@ public class Trem {
         return botao;
     }
 
+    public boolean isToken() {
+        return token;
+    }
+    
+    public void setToken(boolean token) {
+        this.token = token;
+    }
+
     public JTextField getCampoVelocidade() {
         return campoVelocidade;
     }

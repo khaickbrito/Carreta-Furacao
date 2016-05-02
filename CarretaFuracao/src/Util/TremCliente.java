@@ -24,8 +24,7 @@ public class TremCliente {
     public static void main(String[] args) {
     try {
       reg1 = LocateRegistry.getRegistry("localhost", 12345);
-      RmiServerInterface c = (RmiServerInterface)
-        reg1.lookup("CalculadoraServerInterfaceImpl");
+      RmiServerInterface c = (RmiServerInterface)reg1.lookup("CalculadoraServerInterfaceImpl");
       System.out.println("O objeto servidor " + c + " foi encontrado com sucesso.\n");
 
       // vamos efetuar uma soma?
