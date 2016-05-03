@@ -22,23 +22,32 @@ public class Trem {
     private int minX;
     private int maxY;
     private int minY;
+    private int zoneInX;    
+    private int zoneInY;    
+    private int zoneOutX;
+    private int zoneOutY;
     private Mapa mapa;
-    public int x;
-    public int y;
-    public long maxSystemSpeed = 10;
-    public long maxSpeed = 10;
-    public int speed = 1;
+    private int x;
+    private int y;
+    private long maxSystemSpeed = 10;
+    private long maxSpeed = 10;
+    private int speed = 0;
 //    public boolean id;
    // private int cont;
     private JButton botao;
     private JTextField campoVelocidade;
 
-    public Trem(int maxX, int minX, int maxY, int minY, Mapa mapa, int x, int y) {
+    public Trem(int maxX, int minX, int maxY, int minY, Mapa mapa, int x, int y, 
+            int zoneInX, int zoneInY, int zoneOutX, int zoneOutY) {
         this.maxX = maxX;
         this.minX = minX;
         this.maxY = maxY;
         this.minY = minY;
         this.mapa = mapa;
+        this.zoneInX = zoneInX;
+        this.zoneInY = zoneInY;
+        this.zoneOutX = zoneOutX;
+        this.zoneOutX = zoneOutX;
         this.x = x;
         this.y = y;
 //        this.id = true;
@@ -63,23 +72,115 @@ public class Trem {
     public boolean isToken() {
         return token;
     }
-    
+
     public void setToken(boolean token) {
         this.token = token;
     }
 
-    public JTextField getCampoVelocidade() {
-        return campoVelocidade;
+    public int getMaxX() {
+        return maxX;
     }
 
-    public double getVelocidadeMetrosPorSegundo(){
-        return (speed*200);
+    public void setMaxX(int maxX) {
+        this.maxX = maxX;
     }
-    
-    public void setMaxSpeed(int newSpeed){
-        speed = newSpeed;
+
+    public int getMinX() {
+        return minX;
     }
-    
+
+    public void setMinX(int minX) {
+        this.minX = minX;
+    }
+
+    public int getMaxY() {
+        return maxY;
+    }
+
+    public void setMaxY(int maxY) {
+        this.maxY = maxY;
+    }
+
+    public int getMinY() {
+        return minY;
+    }
+
+    public void setMinY(int minY) {
+        this.minY = minY;
+    }
+
+    public int getZoneInX() {
+        return zoneInX;
+    }
+
+    public void setZoneInX(int zoneInX) {
+        this.zoneInX = zoneInX;
+    }
+
+    public int getZoneInY() {
+        return zoneInY;
+    }
+
+    public void setZoneInY(int zoneInY) {
+        this.zoneInY = zoneInY;
+    }
+
+    public int getZoneOutX() {
+        return zoneOutX;
+    }
+
+    public void setZoneOutX(int zoneOutX) {
+        this.zoneOutX = zoneOutX;
+    }
+
+    public int getZoneOutY() {
+        return zoneOutY;
+    }
+
+    public void setZoneOutY(int zoneOutY) {
+        this.zoneOutY = zoneOutY;
+    }
+
+    public Mapa getMapa() {
+        return mapa;
+    }
+
+    public void setMapa(Mapa mapa) {
+        this.mapa = mapa;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public long getMaxSystemSpeed() {
+        return maxSystemSpeed;
+    }
+
+    public void setMaxSystemSpeed(long maxSystemSpeed) {
+        this.maxSystemSpeed = maxSystemSpeed;
+    }
+
+    public long getMaxSpeed() {
+        return maxSpeed;
+    }
+
+    public void setMaxSpeed(long maxSpeed) {
+        this.maxSpeed = maxSpeed;
+    }
+
     public boolean setSpeed(int newSpeed){
         if(token == true && newSpeed <= maxSystemSpeed){
             this.speed = newSpeed/2;
@@ -137,7 +238,7 @@ public class Trem {
                 }
                 mapa.repaint();
                 try {
-                    sleep(10);
+                    sleep(100);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(Trem.class.getName()).log(Level.SEVERE, null, ex);
                 }

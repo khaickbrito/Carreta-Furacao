@@ -86,13 +86,13 @@ public class Mapa extends JFrame {
         g2d.drawRect(275, 175, 250, 125);
         g2d.setColor(Color.RED);
         if (trem[0] != null) {
-            g2d.fillOval(trem[0].x, trem[0].y, 10, 10);
+            g2d.fillOval(trem[0].getX(), trem[0].getY(), 10, 10);
         }
         if (trem[1] != null) {
-            g2d.fillOval(trem[1].x, trem[1].y, 10, 10);
+            g2d.fillOval(trem[1].getX(), trem[1].getY(), 10, 10);
         }
         if (trem[2] != null) {
-            g2d.fillOval(trem[2].x, trem[2].y, 10, 10);
+            g2d.fillOval(trem[2].getX(), trem[2].getX(), 10, 10);
         }
 
     }

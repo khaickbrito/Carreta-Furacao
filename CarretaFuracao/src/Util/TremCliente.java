@@ -30,7 +30,6 @@ public class TremCliente extends JFrame {
         boolean continua = true;
         while (continua) {
             try {
-
                 TremController controller = TremController.getInstance();
                 if (myport == 0) {
                     selfReg = LocateRegistry.createRegistry(porta);

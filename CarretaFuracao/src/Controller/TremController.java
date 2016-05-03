@@ -20,16 +20,18 @@ public class TremController {
 
     public TremController() {
         map = Mapa.getInstance();
-        addTrem(520, 270, 295, 170, map, 270, 170);
-        addTrem(395, 145, 545, 295, map, 145, 545);
-        addTrem(645, 395, 545, 295, map, 645, 545);
+        addTrem(520, 270, 295, 170, map, 270, 170, 520,295,270,295);
+        addTrem(395, 145, 545, 295, map, 145, 545, 270,295,395,545);
+        addTrem(645, 395, 545, 295, map, 645, 545, 395,545,520,295);
+        trem[1].setSpeed(3);
+        trem[2].setSpeed(6);
 
     }
 
-    public void addTrem(int maxX, int minX, int maxY, int minY, Mapa mapa, int x, int y) {
+    public void addTrem(int maxX, int minX, int maxY, int minY, Mapa mapa, int x, int y, int zoneInX, int zoneInY, int zoneOutX, int zoneOutY) {
         for (int i = 0; i < 3; i++) {
             if (trem[i] == null) {
-                trem[i] = new Trem(maxX, minX, maxY, minY, mapa, x, y);
+                trem[i] = new Trem(maxX, minX, maxY, minY, mapa, x, y, zoneInX,zoneInY,zoneOutX,zoneOutY);
                 map.addTrain(trem[i]);
                 break;
             }
