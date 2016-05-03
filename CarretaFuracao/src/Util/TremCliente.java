@@ -17,17 +17,18 @@ import javax.swing.JFrame;
  */
 public class TremCliente extends JFrame {
 
-    private static Registry reg1;
-    private static Registry reg2;
+    private static Registry reg1 = null;
+    private static Registry reg2 = null;
     private static Registry selfReg;
     private static Registry serverReg;
-    private static int porta = 10100;
+//    private static int porta = 10100;
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        int myport = 0;
+        int porta = 10100;
+        int myport = 0, port1 = 0, port2 = 0;
         boolean continua = true;
         Scanner scan = new Scanner(System.in);
         TremController controller = TremController.getInstance();
@@ -36,33 +37,43 @@ public class TremCliente extends JFrame {
                 if (myport == 0) {
                     selfReg = LocateRegistry.createRegistry(porta);
                     myport = porta;
-                }else{
-                    if (porta == 10100) {
+                    RmiServerInterface meuObjeto = new RmiServer();
+                    selfReg.rebind("RmiServer", meuObjeto);
+                } else if (porta == 10100) {
                     porta = 10101;
-                    } else if (porta == 10101) {
-                        porta = 10102;
-                    } else {
-                        porta = 10100;
-                    }
+                } else if (porta == 10101) {
+                    porta = 10102;
+                } else {
+                    porta = 10100;
                 }
-                RmiServerInterface meuObjeto = new RmiServer();
-                selfReg.rebind("RmiServer", meuObjeto);
-                if (myport == porta) {
-                    continue;
-                }
-                reg1 = LocateRegistry.getRegistry(porta);
 
                 if (myport == porta) {
                     continue;
                 }
-                reg2 = LocateRegistry.getRegistry(porta);
+                if (port1 == 0) {
+                    reg1 = LocateRegistry.getRegistry(porta);
+                    RmiServerInterface trem1 = (RmiServerInterface) reg1.lookup("RmiServer");
+                    port1 = porta;
+                    
+                }
+                if (port2 == 0 && porta != port1) {
+                    reg2 = LocateRegistry.getRegistry(porta);
+                    System.out.println("aaaaaaaaaa");
+                    RmiServerInterface trem2 = (RmiServerInterface) reg2.lookup("RmiServer");
+                    continua = false;
+                }
 
-                RmiServerInterface trem1 = (RmiServerInterface) reg1.lookup("RmiServer");
+                
 
-                RmiServerInterface trem2 = (RmiServerInterface) reg2.lookup("RmiServer");
+                
 
-                continua = false;
+                
+
             } catch (Exception ex) {
+                System.out.println("2");
+                if (!continua) {
+                    break;
+                }
                 if (porta == 10100) {
                     porta = 10101;
                 } else if (porta == 10101) {
@@ -71,12 +82,14 @@ public class TremCliente extends JFrame {
                     porta = 10100;
                 }
             }
+
         }
+
         System.out.println("Opa");
         controller.changeSpeed(0, 10);
         controller.changeSpeed(1, 10);
         controller.changeSpeed(2, 10);
-        while(true){
+        while (true) {
             int speed = scan.nextInt();
             controller.changeSpeed(0, speed);
         }
