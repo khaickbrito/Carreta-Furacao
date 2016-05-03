@@ -11,19 +11,19 @@ import javax.swing.JButton;
 import javax.swing.JTextField;
 import static java.lang.Thread.sleep;
 
-
 /**
  *
  * @author victor
  */
 public class Trem {
+
     private boolean token;
     private int maxX;
     private int minX;
     private int maxY;
     private int minY;
-    private int zoneInX;    
-    private int zoneInY;    
+    private int zoneInX;
+    private int zoneInY;
     private int zoneOutX;
     private int zoneOutY;
     private Mapa mapa;
@@ -33,11 +33,11 @@ public class Trem {
     private long maxSpeed = 10;
     private int speed = 0;
 //    public boolean id;
-   // private int cont;
+    // private int cont;
     private JButton botao;
     private JTextField campoVelocidade;
 
-    public Trem(int maxX, int minX, int maxY, int minY, Mapa mapa, int x, int y, 
+    public Trem(int maxX, int minX, int maxY, int minY, Mapa mapa, int x, int y,
             int zoneInX, int zoneInY, int zoneOutX, int zoneOutY) {
         this.maxX = maxX;
         this.minX = minX;
@@ -181,17 +181,18 @@ public class Trem {
         this.maxSpeed = maxSpeed;
     }
 
-    public boolean setSpeed(int newSpeed){
-        if(token == true && newSpeed <= maxSystemSpeed){
-            this.speed = newSpeed/2;
+    public boolean setSpeed(int newSpeed) {
+        if (token == true && newSpeed <= maxSystemSpeed) {
+            this.speed = newSpeed / 2;
             return true;
-        }else if (token == false && newSpeed <= maxSpeed){
+        } else if (token == false && newSpeed <= maxSpeed) {
             this.speed = newSpeed;
             return true;
-        }else
+        } else {
             return false;
+        }
     }
-    
+
     private class TremThread implements Runnable {
 
         @Override

@@ -8,6 +8,7 @@ package Util;
 import Controller.TremController;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.Scanner;
 import javax.swing.JFrame;
 
 /**
@@ -28,27 +29,22 @@ public class TremCliente extends JFrame {
     public static void main(String[] args) {
         int myport = 0;
         boolean continua = true;
+        Scanner scan = new Scanner(System.in);
+        TremController controller = TremController.getInstance();
         while (continua) {
             try {
-                TremController controller = TremController.getInstance();
                 if (myport == 0) {
                     selfReg = LocateRegistry.createRegistry(porta);
                     myport = porta;
                 }else{
                     if (porta == 10100) {
-                    System.out.println("2");
                     porta = 10101;
-                } else if (porta == 10101) {
-                    System.out.println("3");
-                    porta = 10102;
-                } else {
-                    System.out.println("4");
-                    porta = 10100;
+                    } else if (porta == 10101) {
+                        porta = 10102;
+                    } else {
+                        porta = 10100;
+                    }
                 }
-                }
-//            String ipServidor = CaixaDeTexto.pedirIP();
-//            
-//            System.out.println(ipServidor);
                 RmiServerInterface meuObjeto = new RmiServer();
                 selfReg.rebind("RmiServer", meuObjeto);
                 if (myport == porta) {
@@ -66,42 +62,23 @@ public class TremCliente extends JFrame {
                 RmiServerInterface trem2 = (RmiServerInterface) reg2.lookup("RmiServer");
 
                 continua = false;
-
-//            
-//            serverReg = LocateRegistry.getRegistry(ipServidor, 12345);
-//            
-//            RmiServerInterface servidor = (RmiServerInterface) serverReg.lookup("RmiServer");
-//            
-//            String[] trens = servidor.getTrainsIp();
-//            
-//            
-//            
-//            reg1 = LocateRegistry.getRegistry(ipServidor, 12345);
-//         
-//            RmiServerInterface trem1 = (RmiServerInterface) reg1.lookup("RmiServer");
-//            
-//            reg2 = LocateRegistry.getRegistry("localhost", 12345);
-//            
-//            RmiServerInterface trem2 = (RmiServerInterface) reg2.lookup("RmiServer");
             } catch (Exception ex) {
-                System.out.println("1");
                 if (porta == 10100) {
-                    System.out.println("2");
                     porta = 10101;
                 } else if (porta == 10101) {
-                    System.out.println("3");
                     porta = 10102;
                 } else {
-                    System.out.println("4");
                     porta = 10100;
                 }
-
             }
         }
-        
-        
-        
-    
+        System.out.println("Opa");
+        controller.changeSpeed(0, 10);
+        controller.changeSpeed(1, 10);
+        controller.changeSpeed(2, 10);
+        while(true){
+            int speed = scan.nextInt();
+            controller.changeSpeed(0, speed);
+        }
     }
-
 }

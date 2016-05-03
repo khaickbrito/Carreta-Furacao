@@ -39,13 +39,6 @@ public class Mapa extends JFrame {
     public static Mapa getInstance() {
         return instance;
     }
-
-//    public void startMap() {
-//        Mapa m = Mapa.getInstance();
-//        trem1 = new Trem(520, 270, 295, 170, m, 270, 170);
-//        trem2 = new Trem(395, 145, 545, 295, m, 145, 545);
-//        trem3 = new Trem(645, 395, 545, 295, m, 645, 545);
-//    }
     
     public void addTrain(Trem t) {
 
@@ -60,23 +53,8 @@ public class Mapa extends JFrame {
             }
             
         }
-
-//        trem[0] = new Trem(520, 270, 295, 170, instance, 270, 170);
-//        trem[1] = new Trem(395, 145, 545, 295, instance, 145, 545);
-//        trem[2] = new Trem(645, 395, 545, 295, instance, 645, 545);
     }
 
-//    public static void main(String[] args) {
-//        Mapa m = new Mapa();
-//        trem1 = new Trem(520, 270, 295, 170, m, 270, 170);
-//        trem2 = new Trem(395, 145, 545, 295, m, 145, 545);
-//        trem3 = new Trem(645, 395, 545, 295, m, 645, 545);
-//
-////        m.add(trem1.getBotao());
-////        trem1.getBotao().setVisible(true);
-////        trem1.getBotao().setSize(100, 50);
-//
-//    }
     @Override
     public void paint(Graphics g) {
         super.paint(g);
@@ -92,7 +70,7 @@ public class Mapa extends JFrame {
             g2d.fillOval(trem[1].getX(), trem[1].getY(), 10, 10);
         }
         if (trem[2] != null) {
-            g2d.fillOval(trem[2].getX(), trem[2].getX(), 10, 10);
+            g2d.fillOval(trem[2].getX(), trem[2].getY(), 10, 10);
         }
 
     }
