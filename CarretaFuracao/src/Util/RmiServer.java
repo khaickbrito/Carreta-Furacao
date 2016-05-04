@@ -26,7 +26,7 @@ public class RmiServer extends UnicastRemoteObject implements RmiServerInterface
     }    
 
     @Override
-    public boolean sendDistance(double dist) throws RemoteException {
+    public boolean sendSelfDistance(double dist) throws RemoteException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

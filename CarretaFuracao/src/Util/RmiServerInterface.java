@@ -14,7 +14,7 @@ public interface RmiServerInterface extends Remote{
     // retorna sua soma
     public int somar(int a, int b) throws RemoteException;
     
-    public boolean sendDistance(double dist) throws RemoteException;
+    public boolean sendSelfDistance(double dist) throws RemoteException;
     
     public boolean sendSelfPosition(double x, double y) throws RemoteException;
     

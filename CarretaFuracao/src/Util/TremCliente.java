@@ -21,6 +21,7 @@ public class TremCliente extends JFrame {
     private static Registry reg2 = null;
     private static Registry selfReg;
     private static Registry serverReg;
+    private static TremController controller = TremController.getInstance();
 //    private static int porta = 10100;
 
     /**
@@ -30,8 +31,8 @@ public class TremCliente extends JFrame {
         int porta = 10100;
         int myport = 0, port1 = 0, port2 = 0;
         boolean continua = true;
-        Scanner scan = new Scanner(System.in);
-        TremController controller = TremController.getInstance();
+        Scanner scan1 = new Scanner(System.in);
+        Scanner scan2 = new Scanner(System.in);
         while (continua) {
             try {
                 if (myport == 0) {
@@ -58,19 +59,11 @@ public class TremCliente extends JFrame {
                 }
                 if (port2 == 0 && porta != port1) {
                     reg2 = LocateRegistry.getRegistry(porta);
-                    System.out.println("aaaaaaaaaa");
                     RmiServerInterface trem2 = (RmiServerInterface) reg2.lookup("RmiServer");
                     continua = false;
                 }
-
                 
-
-                
-
-                
-
             } catch (Exception ex) {
-                System.out.println("2");
                 if (!continua) {
                     break;
                 }
@@ -82,16 +75,21 @@ public class TremCliente extends JFrame {
                     porta = 10100;
                 }
             }
-
         }
-
-        System.out.println("Opa");
-        controller.changeSpeed(0, 10);
-        controller.changeSpeed(1, 10);
-        controller.changeSpeed(2, 10);
-        while (true) {
-            int speed = scan.nextInt();
-            controller.changeSpeed(0, speed);
-        }
+        controller.changeSpeed(0, 0);
+        controller.changeSpeed(1, 0);
+        controller.changeSpeed(2, 1);
+        
+//        while (true) {
+//            System.out.print("Digite o número do trem: ");
+//            int trem = scan1.nextInt();
+//            System.out.print("Digite a velocidade: ");
+//            int speed = scan2.nextInt();
+//            controller.changeSpeed(trem, speed);
+//            
+//            System.out.println("--------------------------------\n");
+//        }
+        
+        
     }
 }

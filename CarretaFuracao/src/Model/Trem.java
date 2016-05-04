@@ -16,8 +16,9 @@ import static java.lang.Thread.sleep;
  * @author victor
  */
 public class Trem {
-
+    private Calculo calculador;
     private boolean token;
+    private int id;
     private int maxX;
     private int minX;
     private int maxY;
@@ -37,8 +38,9 @@ public class Trem {
     private JButton botao;
     private JTextField campoVelocidade;
 
-    public Trem(int maxX, int minX, int maxY, int minY, Mapa mapa, int x, int y,
-            int zoneInX, int zoneInY, int zoneOutX, int zoneOutY) {
+    public Trem(int id, int maxX, int minX, int maxY, int minY, Mapa mapa, int x, int y,
+            int zoneInX, int zoneInY, int zoneOutX, int zoneOutY, Calculo calc) {
+        this.id = id;
         this.maxX = maxX;
         this.minX = minX;
         this.maxY = maxY;
@@ -47,9 +49,10 @@ public class Trem {
         this.zoneInX = zoneInX;
         this.zoneInY = zoneInY;
         this.zoneOutX = zoneOutX;
-        this.zoneOutX = zoneOutX;
+        this.zoneOutY = zoneOutY;
         this.x = x;
         this.y = y;
+        calculador = calc;
 //        this.id = true;
         new Thread(new TremThread()).start();
 
@@ -177,15 +180,23 @@ public class Trem {
         return maxSpeed;
     }
 
-    public void setMaxSpeed(long maxSpeed) {
-        this.maxSpeed = maxSpeed;
+    public boolean setMaxSpeed(long maxSpeed) {
+        if(maxSpeed <= maxSystemSpeed && maxSpeed >= 0){
+            this.maxSpeed = maxSpeed;
+            return true;
+        }else
+            return false;
+    }
+    
+    public int getSpeed() {
+        return speed;
     }
 
     public boolean setSpeed(int newSpeed) {
-        if (token == true && newSpeed <= maxSystemSpeed) {
+        if (token == true && newSpeed <= maxSystemSpeed && newSpeed >= 0) {
             this.speed = newSpeed / 2;
             return true;
-        } else if (token == false && newSpeed <= maxSpeed) {
+        } else if (token == false && newSpeed <= maxSpeed && newSpeed >= 0) {
             this.speed = newSpeed;
             return true;
         } else {
@@ -200,6 +211,9 @@ public class Trem {
             int auxX;
             int auxY;
             while (true) {
+                calculador.isEntryingZone(2);
+                calculador.isInZone(2);
+                calculador.isLeavingZone(2);
                 if (x != maxX && y == minY) {
                     if ((x + speed) > maxX) {
                         auxX = maxX - x;
@@ -239,7 +253,7 @@ public class Trem {
                 }
                 mapa.repaint();
                 try {
-                    sleep(100);
+                    sleep(10);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(Trem.class.getName()).log(Level.SEVERE, null, ex);
                 }
