@@ -114,10 +114,26 @@ public class Calculo {
         int zoneOutY = trem.getZoneOutY();
         int speed = trem.getSpeed();
 
-        if (x == zoneInX && y == zoneInY) {
-            System.out.println("Trem " + id + " ENTROU");
-            return true;
-        } else {
+        if (id == 0){
+            if(x == zoneInX && y == zoneInY-1){
+                System.out.println("Trem " + id + " vai entrar");
+                return true;
+            }else
+                return false;
+        }else if (id == 1){
+            if(x == zoneInX-1 && y == zoneInY){
+                System.out.println("Trem " + id + " vai entrar");
+                return true;
+            }else
+                return false;
+        }else if (id == 2){
+            if(x == zoneInX+1 && y == zoneInY){
+                System.out.println("Trem " + id + " vai entrar");
+                return true;
+            }else
+                return false;
+        }else{
+            System.out.println("Id invalido: " + id);
             return false;
         }
     }

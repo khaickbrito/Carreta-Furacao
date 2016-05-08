@@ -33,7 +33,7 @@ public class TremController {
     public void addTrem(int id, int maxX, int minX, int maxY, int minY, Mapa mapa, int x, int y, int zoneInX, int zoneInY, int zoneOutX, int zoneOutY) {
         for (int i = 0; i < 3; i++) {
             if (trem[i] == null) {
-                trem[i] = new Trem(id, maxX, minX, maxY, minY, mapa, x, y, zoneInX, zoneInY, zoneOutX, zoneOutY);
+                trem[i] = new Trem(id, maxX, minX, maxY, minY, mapa, x, y, zoneInX, zoneInY, zoneOutX, zoneOutY, 0);
                 map.addTrain(trem[i]);
                 break;
             }

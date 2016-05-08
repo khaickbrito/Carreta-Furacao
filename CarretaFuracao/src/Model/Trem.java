@@ -227,12 +227,12 @@ public class Trem {
             int auxY;
             while (true) {
                 if(calculador.isEntryingZone(trem)){
-                    System.out.println("Entrando");
+                    
                 }
                 else if(calculador.isInZone(trem)){
                     System.out.println("Posicao X: " + x + "Posicao Y: " + y);
-                }else if(calculador.isLeavingZone(trem)){
-                    
+                }if(calculador.isLeavingZone(trem)){
+                    //Devolve os MaxSpeed para MaxSystemSpeed
                 }
                 if (x != maxX && y == minY) {
                     if ((x + speed) > maxX) {
