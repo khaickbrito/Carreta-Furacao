@@ -18,12 +18,7 @@ public class RmiServer extends UnicastRemoteObject implements RmiServerInterface
     public RmiServer() throws RemoteException{
         // construtor padrão
         this.controller = TremController.getInstance();  
-    }
-    
-    @Override
-    public int somar(int a, int b) throws RemoteException{
-        return a + b;
-    }    
+    }  
 
     /*
         Serve para enviar a própria posição para os trens vizinhos.
@@ -37,8 +32,8 @@ public class RmiServer extends UnicastRemoteObject implements RmiServerInterface
         Serve para enviar a sua própria posição para os trens vizinhos.
     */
     @Override
-    public boolean sendSelfPosition(int id, double x, double y) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void sendSelfPosition(int id, int x, int y) throws RemoteException {
+        controller.changePosition(id, x, y);
     }
     /*
         Serve para um trem envir sua própria velocidade para os outros, assim 
@@ -64,22 +59,12 @@ public class RmiServer extends UnicastRemoteObject implements RmiServerInterface
     */
     @Override
     public boolean sendMaxSpeed(int Maxspeed) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return controller.changeMaxSpeed(facade.getMyId(), Maxspeed);
     }
-
-    @Override
-    public boolean sendToken() throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+    
     @Override
     public String[] getTrainsIp() throws RemoteException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void printFuncionou() throws RemoteException {
-        controller.printFuncionou();
     }
     
 }

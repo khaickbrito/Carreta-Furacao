@@ -10,25 +10,17 @@ import java.rmi.*;
 import java.rmi.registry.Registry;
 
 public interface RmiServerInterface extends Remote{
-    // método público que recebe dois valores inteiros e
-    // retorna sua soma
-    public int somar(int a, int b) throws RemoteException;
     
     public boolean sendSelfDistance(double dist) throws RemoteException;
     
-    public boolean sendSelfPosition(int id, double x, double y) throws RemoteException;
+    public void sendSelfPosition(int id, int x, int y) throws RemoteException;
     
     public boolean sendSelfVelocity(int id, int veloc) throws RemoteException;
     
     public boolean changeTrainVelocity(int newVeloc) throws RemoteException;
     
     public boolean sendMaxSpeed(int Maxspeed) throws RemoteException;
-    
-    public boolean sendToken() throws RemoteException;
-    
+      
     public String[] getTrainsIp() throws RemoteException;
-    
-    public void printFuncionou() throws RemoteException;
-    
     
 }
