@@ -39,7 +39,7 @@ public class Trem {
     private JTextField campoVelocidade;
 
     public Trem(int id, int maxX, int minX, int maxY, int minY, Mapa mapa, int x, int y,
-            int zoneInX, int zoneInY, int zoneOutX, int zoneOutY, Calculo calc) {
+            int zoneInX, int zoneInY, int zoneOutX, int zoneOutY) {
         this.id = id;
         this.maxX = maxX;
         this.minX = minX;
@@ -52,9 +52,8 @@ public class Trem {
         this.zoneOutY = zoneOutY;
         this.x = x;
         this.y = y;
-        calculador = calc;
-//        this.id = true;
-        new Thread(new TremThread()).start();
+        calculador = new Calculo();
+        new Thread(new TremThread(this)).start();
 
 //        campoVelocidade = new JTextField();
 //        campoVelocidade.setText("Digite");
@@ -167,7 +166,15 @@ public class Trem {
     public void setY(int y) {
         this.y = y;
     }
-
+    
+    public void setId(int id){
+        this.id = id;
+    }
+    
+    public int getId(){
+        return id;
+    }
+    
     public long getMaxSystemSpeed() {
         return maxSystemSpeed;
     }
@@ -205,15 +212,20 @@ public class Trem {
     }
 
     private class TremThread implements Runnable {
-
+        Trem trem;
+        
+        public TremThread(Trem trem){
+            this.trem = trem;
+        }
+        
         @Override
         public void run() {
             int auxX;
             int auxY;
             while (true) {
-                calculador.isEntryingZone(2);
-                calculador.isInZone(2);
-                calculador.isLeavingZone(2);
+                calculador.isEntryingZone(trem);
+                calculador.isInZone(trem);
+                calculador.isLeavingZone(trem);
                 if (x != maxX && y == minY) {
                     if ((x + speed) > maxX) {
                         auxX = maxX - x;

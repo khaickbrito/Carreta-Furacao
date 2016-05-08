@@ -14,14 +14,12 @@ import Model.Calculo;
  * @author victor
  */
 public class TremController {
-    private Calculo calculador;
     private static TremController instance = new TremController();
     private Trem[] trem = new Trem[3];
     private Mapa map;
 
     public TremController() {
         map = Mapa.getInstance();
-        calculador = new Calculo(trem);
         addTrem(0, 520, 270, 295, 170, map, 270, 170, 520, 295, 270, 295);
         addTrem(1, 395, 145, 545, 295, map, 145, 545, 270, 295, 395, 545);
         addTrem(2, 645, 395, 545, 295, map, 645, 545, 395, 545, 520, 295);
@@ -31,7 +29,7 @@ public class TremController {
     public void addTrem(int id, int maxX, int minX, int maxY, int minY, Mapa mapa, int x, int y, int zoneInX, int zoneInY, int zoneOutX, int zoneOutY) {
         for (int i = 0; i < 3; i++) {
             if (trem[i] == null) {
-                trem[i] = new Trem(id, maxX, minX, maxY, minY, mapa, x, y, zoneInX, zoneInY, zoneOutX, zoneOutY, calculador);
+                trem[i] = new Trem(id, maxX, minX, maxY, minY, mapa, x, y, zoneInX, zoneInY, zoneOutX, zoneOutY);
                 map.addTrain(trem[i]);
                 break;
             }
