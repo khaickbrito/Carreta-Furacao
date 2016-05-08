@@ -25,27 +25,43 @@ public class RmiServer extends UnicastRemoteObject implements RmiServerInterface
         return a + b;
     }    
 
+    /*
+        Serve para enviar a própria posição para os trens vizinhos.
+    */
     @Override
     public boolean sendSelfDistance(double dist) throws RemoteException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
+    /*
+        Serve para enviar a sua própria posição para os trens vizinhos.
+    */
     @Override
-    public boolean sendSelfPosition(double x, double y) throws RemoteException {
+    public boolean sendSelfPosition(int id, double x, double y) throws RemoteException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    /*
+        Serve para um trem envir sua própria velocidade para os outros, assim 
+    eles ficarão sabendo de sua velocidade atual.
+    */
     @Override
-    public boolean sendSelfVelocity(double veloc) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean sendSelfVelocity(int id, int veloc) throws RemoteException {
+        return controller.changeSpeed(id, veloc);
     }
 
+    /*
+        Serve para alterar a velocidade do trem portador desse registro aqui.
+    */
     @Override
     public boolean changeTrainVelocity(int newVeloc) throws RemoteException {
         controller.changeSpeed(facade.getMyId(), newVeloc);
         return true;
     }
-
+    
+    /*
+        Serve para enviar para o trem portador desse registro a velocidade máxi-
+    ma que ele pode trafegar sem invadir a zona compartilhada.
+    */
     @Override
     public boolean sendMaxSpeed(int Maxspeed) throws RemoteException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

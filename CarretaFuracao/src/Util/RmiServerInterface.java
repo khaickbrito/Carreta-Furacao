@@ -16,9 +16,9 @@ public interface RmiServerInterface extends Remote{
     
     public boolean sendSelfDistance(double dist) throws RemoteException;
     
-    public boolean sendSelfPosition(double x, double y) throws RemoteException;
+    public boolean sendSelfPosition(int id, double x, double y) throws RemoteException;
     
-    public boolean sendSelfVelocity(double veloc) throws RemoteException;
+    public boolean sendSelfVelocity(int id, int veloc) throws RemoteException;
     
     public boolean changeTrainVelocity(int newVeloc) throws RemoteException;
     
