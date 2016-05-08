@@ -22,13 +22,34 @@ public class Calculo {
         int speed = trem.getSpeed();
         
         if(id == 0){
-            
+            if(y <= zoneOutY && y >= zoneInY)
+                if(y < zoneOutY && x == zoneOutX){
+                    return false;
+                }else
+                    return true;
+            else
+                return false;
         }else if(id == 1){
-            
+            if(x <= zoneOutX && x >= zoneInX)
+                if(x > zoneInX && y == zoneOutY)
+                    return false;
+                else
+                    return true;
+            else
+                return false;
         }else if(id == 2){
-            
+            if(x >= zoneInX && x <= zoneOutX)
+                if(x < zoneOutX && y == zoneOutY)
+                    return false;
+                else{
+                    System.out.println("Posição X: " + x + "  Posição Y: " + y);
+                    return true;
+                }    
+            else
+                return false;
         }else{
             System.out.println("O id está inválido");
+            return false;
         }
         
 
@@ -86,6 +107,7 @@ public class Calculo {
     public boolean isEntryingZone(Trem trem) {
         int x = trem.getX();
         int y = trem.getY();
+        int id = trem.getId();
         int zoneInX = trem.getZoneInX();
         int zoneInY = trem.getZoneInY();
         int zoneOutX = trem.getZoneOutX();
@@ -93,7 +115,7 @@ public class Calculo {
         int speed = trem.getSpeed();
 
         if (x == zoneInX && y == zoneInY) {
-            System.out.println("ENTROU");
+            System.out.println("Trem " + id + " ENTROU");
             return true;
         } else {
             return false;
@@ -103,6 +125,7 @@ public class Calculo {
     public boolean isLeavingZone(Trem trem) {
         int x = trem.getX();
         int y = trem.getY();
+        int id = trem.getId();
         int zoneInX = trem.getZoneInX();
         int zoneInY = trem.getZoneInY();
         int zoneOutX = trem.getZoneOutX();
@@ -110,11 +133,15 @@ public class Calculo {
         int speed = trem.getSpeed();
 
         if (x == zoneOutX && y == zoneOutY) {
-            System.out.println("SAIU");
+            System.out.println("Trem " + id + " SAIU");
             return true;
         } else {
             return false;
         }
+    }
+    
+    public int firstToEnter(Trem trem1, Trem trem2){
+        return 0;
     }
 
 }

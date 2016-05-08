@@ -17,7 +17,6 @@ import static java.lang.Thread.sleep;
  */
 public class Trem {
     private Calculo calculador;
-    private boolean token;
     private int id;
     private int maxX;
     private int minX;
@@ -33,13 +32,15 @@ public class Trem {
     private long maxSystemSpeed = 10;
     private long maxSpeed = 10;
     private int speed = 0;
+    private int distanceToZone;
 //    public boolean id;
     // private int cont;
     private JButton botao;
     private JTextField campoVelocidade;
 
     public Trem(int id, int maxX, int minX, int maxY, int minY, Mapa mapa, int x, int y,
-            int zoneInX, int zoneInY, int zoneOutX, int zoneOutY) {
+            int zoneInX, int zoneInY, int zoneOutX, int zoneOutY, int dist) {
+        this.distanceToZone = dist;
         this.id = id;
         this.maxX = maxX;
         this.minX = minX;
@@ -69,14 +70,6 @@ public class Trem {
 
     public JButton getBotao() {
         return botao;
-    }
-
-    public boolean isToken() {
-        return token;
-    }
-
-    public void setToken(boolean token) {
-        this.token = token;
     }
 
     public int getMaxX() {
@@ -174,6 +167,16 @@ public class Trem {
     public int getId(){
         return id;
     }
+
+    public int getDistanceToZone() {
+        return distanceToZone;
+    }
+
+    public void setDistanceToZone(int distanceToZone) {
+        this.distanceToZone = distanceToZone;
+    }
+    
+    
     
     public long getMaxSystemSpeed() {
         return maxSystemSpeed;
@@ -200,10 +203,10 @@ public class Trem {
     }
 
     public boolean setSpeed(int newSpeed) {
-        if (token == true && newSpeed <= maxSystemSpeed && newSpeed >= 0) {
+        if (newSpeed <= maxSystemSpeed && newSpeed >= 0) {
             this.speed = newSpeed / 2;
             return true;
-        } else if (token == false && newSpeed <= maxSpeed && newSpeed >= 0) {
+        } else if (newSpeed <= maxSpeed && newSpeed >= 0) {
             this.speed = newSpeed;
             return true;
         } else {
@@ -223,15 +226,21 @@ public class Trem {
             int auxX;
             int auxY;
             while (true) {
-                calculador.isEntryingZone(trem);
-                calculador.isInZone(trem);
-                calculador.isLeavingZone(trem);
+                if(calculador.isEntryingZone(trem)){
+                    System.out.println("Entrando");
+                }
+                else if(calculador.isInZone(trem)){
+                    System.out.println("Posicao X: " + x + "Posicao Y: " + y);
+                }else if(calculador.isLeavingZone(trem)){
+                    
+                }
                 if (x != maxX && y == minY) {
                     if ((x + speed) > maxX) {
                         auxX = maxX - x;
                         auxY = speed - auxX;
                         x = maxX;
                         y += auxY;
+                        
                     } else {
                         x += speed;
                     }
