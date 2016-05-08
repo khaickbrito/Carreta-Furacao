@@ -227,7 +227,7 @@ public class Trem {
             int auxY;
             while (true) {
                 if(calculador.isEntryingZone(trem)){
-                    
+                    System.out.println("Entra");
                 }
                 else if(calculador.isInZone(trem)){
                     System.out.println("Posicao X: " + x + "Posicao Y: " + y);
