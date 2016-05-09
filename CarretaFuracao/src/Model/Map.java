@@ -17,17 +17,17 @@ import javax.swing.JFrame;
  *
  * @author victor
  */
-public class Mapa extends JFrame {
+public class Map extends JFrame {
 
-    private static Trem[] trem = new Trem[3];
-    private static Trem trem1;
-    private static Trem trem2;
-    private static Trem trem3;
+    private static Train[] trem = new Train[3];
+    private static Train trem1;
+    private static Train trem2;
+    private static Train trem3;
     private boolean podeEscrever = false;
 
-    private static Mapa instance = new Mapa();
+    private static Map instance = new Map();
 
-    public Mapa() {
+    public Map() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(800, 600);
         setVisible(true);
@@ -36,11 +36,11 @@ public class Mapa extends JFrame {
         trem[2] = null;
     }
 
-    public static Mapa getInstance() {
+    public static Map getInstance() {
         return instance;
     }
     
-    public void addTrain(Trem t) {
+    public void addTrain(Train t) {
 
         for (int i = 0; i < 3; i++) {
             if (trem[i] == null) {

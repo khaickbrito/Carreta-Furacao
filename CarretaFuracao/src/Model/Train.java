@@ -5,6 +5,7 @@
  */
 package Model;
 
+import Util.Operations;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
@@ -15,8 +16,9 @@ import static java.lang.Thread.sleep;
  *
  * @author victor
  */
-public class Trem {
-    private Calculo calculador;
+public class Train {
+
+    private Operations calculador;
     private int id;
     private int maxX;
     private int minX;
@@ -26,7 +28,7 @@ public class Trem {
     private int zoneInY;
     private int zoneOutX;
     private int zoneOutY;
-    private Mapa mapa;
+    private Map mapa;
     private int x;
     private int y;
     private long maxSystemSpeed = 10;
@@ -38,8 +40,8 @@ public class Trem {
     private JButton botao;
     private JTextField campoVelocidade;
 
-    public Trem(int id, int maxX, int minX, int maxY, int minY, Mapa mapa, int x, int y,
-            int zoneInX, int zoneInY, int zoneOutX, int zoneOutY, int dist) {
+    public Train(int id, int maxX, int minX, int maxY, int minY, Map mapa, int x, int y,
+            int zoneInX, int zoneInY, int zoneOutX, int zoneOutY, int dist, Operations calc) {
         this.distanceToZone = dist;
         this.id = id;
         this.maxX = maxX;
@@ -53,7 +55,7 @@ public class Trem {
         this.zoneOutY = zoneOutY;
         this.x = x;
         this.y = y;
-        calculador = new Calculo();
+        calculador = calc;
         new Thread(new TremThread(this)).start();
 
 //        campoVelocidade = new JTextField();
@@ -136,11 +138,11 @@ public class Trem {
         this.zoneOutY = zoneOutY;
     }
 
-    public Mapa getMapa() {
+    public Map getMapa() {
         return mapa;
     }
 
-    public void setMapa(Mapa mapa) {
+    public void setMapa(Map mapa) {
         this.mapa = mapa;
     }
 
@@ -159,12 +161,12 @@ public class Trem {
     public void setY(int y) {
         this.y = y;
     }
-    
-    public void setId(int id){
+
+    public void setId(int id) {
         this.id = id;
     }
-    
-    public int getId(){
+
+    public int getId() {
         return id;
     }
 
@@ -175,9 +177,7 @@ public class Trem {
     public void setDistanceToZone(int distanceToZone) {
         this.distanceToZone = distanceToZone;
     }
-    
-    
-    
+
     public long getMaxSystemSpeed() {
         return maxSystemSpeed;
     }
@@ -191,93 +191,120 @@ public class Trem {
     }
 
     public boolean setMaxSpeed(long maxSpeed) {
-        if(maxSpeed <= maxSystemSpeed && maxSpeed >= 0){
+        if (maxSpeed >= maxSystemSpeed) {
             this.maxSpeed = maxSpeed;
-            return true;
-        }else
-            return false;
-    }
-    
-    public int getSpeed() {
-        return speed;
-    }
-
-    public boolean setSpeed(int newSpeed) {
-        if (newSpeed <= maxSystemSpeed && newSpeed >= 0) {
-            this.speed = newSpeed / 2;
-            return true;
-        } else if (newSpeed <= maxSpeed && newSpeed >= 0) {
-            this.speed = newSpeed;
             return true;
         } else {
             return false;
         }
     }
 
+    public int getSpeed() {
+        return speed;
+    }
+
+    public boolean setSpeed(int newSpeed) {
+        if (newSpeed >= maxSystemSpeed || newSpeed == 0) {
+            if(newSpeed >= maxSpeed){
+                this.speed = newSpeed;
+                return true;
+            } else
+                return false;
+        } else {
+            return false;
+        }
+    }
+
     private class TremThread implements Runnable {
-        Trem trem;
-        
-        public TremThread(Trem trem){
+
+        Train trem;
+
+        public TremThread(Train trem) {
             this.trem = trem;
         }
-        
+
         @Override
         public void run() {
+            while (true) {
+                if(speed!=0){
+                    if (calculador.isEntryingZone(trem)) {
+                        Train firstTrain = calculador.firstToEnter(trem);
+                        if(id == 1)
+                            System.out.println(firstTrain.getId());
+//                        System.out.println(distanceToZone);
+//                        System.out.println("Train " + id + " is coming in");
+//                        System.out.println("Calculate Speeds");
+                        move();
+                        distanceToZone--;
+                    } else if (calculador.isInZone(trem)) {
+                        if (calculador.isLeavingZone(trem)) {
+                            calculador.putDistance(trem);
+//                            System.out.println("Trem " + id + " SAIU");
+//                            System.out.println("Bring speeds back");
+                            //Devolve os MaxSpeed para MaxSystemSpeed
+                            move();
+                        } else {
+    //                        System.out.println("X: " + x + "   Y: " + y);
+                            move();
+                        }
+                    } else {
+//                        System.out.println(distanceToZone);
+                        distanceToZone--;
+                        move();
+                    }
+                    mapa.repaint();
+                }try {
+                    sleep(speed);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Train.class.getName()).log(Level.SEVERE, null, ex);
+                }
+   
+            }
+        }
+
+        public void move() {
             int auxX;
             int auxY;
-            while (true) {
-                if(calculador.isEntryingZone(trem)){
-                    System.out.println("Entra");
-                }
-                else if(calculador.isInZone(trem)){
-                    System.out.println("Posicao X: " + x + "Posicao Y: " + y);
-                }if(calculador.isLeavingZone(trem)){
-                    //Devolve os MaxSpeed para MaxSystemSpeed
-                }
-                if (x != maxX && y == minY) {
-                    if ((x + speed) > maxX) {
-                        auxX = maxX - x;
-                        auxY = speed - auxX;
-                        x = maxX;
-                        y += auxY;
-                        
-                    } else {
-                        x += speed;
-                    }
-                } else if (x != minX && y == maxY) {
-                    if ((x - speed) < minX) {
-                        auxX = x - minX;
-                        auxY = speed - auxX;
-                        x = minX;
-                        y -= auxY;
-                    } else {
-                        x -= speed;
-                    }
-                } else if (x == maxX && y != maxY) {
-                    if ((y + speed) > maxY) {
-                        auxY = maxY - y;
-                        auxX = speed - auxY;
-                        y = maxY;
-                        x -= auxX;
-                    } else {
-                        y += speed;
-                    }
-                } else if (x == minX && y != minY) {
-                    if ((y - speed) < minY) {
-                        auxY = y - minY;
-                        auxX = speed - auxY;
-                        y = minY;
-                        x += auxX;
-                    } else {
-                        y -= speed;
-                    }
-                }
-                mapa.repaint();
-                try {
-                    sleep(10);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(Trem.class.getName()).log(Level.SEVERE, null, ex);
-                }
+            if (x != maxX && y == minY) {
+                x++;
+//                if ((x + speed) > maxX) {
+//                    auxX = maxX - x;
+//                    auxY = speed - auxX;
+//                    x = maxX;
+//                    y += auxY;
+//                } else {
+//                    x += speed;
+//                }
+            } else if (x != minX && y == maxY) {
+                x--;
+//                if ((x - speed) < minX) {
+//                    auxX = x - minX;
+//                    auxY = speed - auxX;
+//                    x = minX;
+//                    y -= auxY;
+//                } else {
+//                    x -= speed;
+//                }
+            } else if (x == maxX && y != maxY) {
+                y++;
+//                if ((y + speed) > maxY) {
+//                    auxY = maxY - y;
+//                    auxX = speed - auxY;
+//                    y = maxY;
+//                    x -= auxX;
+//                } else {
+//                    y += speed;
+//                }
+            } else if (x == minX && y != minY) {
+                y--;
+//                if ((y - speed) < minY) {
+//                    auxY = y - minY;
+//                    auxX = speed - auxY;
+//                    y = minY;
+//                    x += auxX;
+//                } else {
+//                    y -= speed;
+//                }
             }
         }
     }

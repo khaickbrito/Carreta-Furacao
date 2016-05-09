@@ -5,9 +5,9 @@
  */
 package Controller;
 
-import Model.Mapa;
-import Model.Trem;
-import Model.Calculo;
+import Model.Map;
+import Model.Train;
+import Util.Operations;
 
 /**
  *
@@ -16,29 +16,30 @@ import Model.Calculo;
 public class TremController {
 
     private static TremController instance = new TremController();
-    private Trem[] trem = new Trem[3];
-    private Mapa map;
+    private Train[] trem = new Train[3];
+    private Map map;
+    private Operations calculador;
 
     public TremController() {
-        map = Mapa.getInstance();
-        addTrem(0, 520, 270, 295, 170, map, 270, 170, 520, 295, 270, 295);
-        addTrem(1, 395, 145, 545, 295, map, 145, 545, 270, 295, 395, 545);
-        addTrem(2, 645, 395, 545, 295, map, 645, 545, 395, 545, 520, 295);
+        map = Map.getInstance();
+        calculador = new Operations(trem);
+        addTrem(0, 520, 270, 295, 170, map, 270, 294, 520, 295, 270, 295, 499);
+        addTrem(1, 395, 145, 545, 295, map, 145, 545, 270, 295, 395, 545, 375);
+        addTrem(2, 645, 395, 545, 295, map, 645, 545, 395, 545, 520, 295, 250);
     }
 
     public static TremController getInstance() {
         return instance;
     }
 
-    public void addTrem(int id, int maxX, int minX, int maxY, int minY, Mapa mapa, int x, int y, int zoneInX, int zoneInY, int zoneOutX, int zoneOutY) {
+    public void addTrem(int id, int maxX, int minX, int maxY, int minY, Map mapa, int x, int y, int zoneInX, int zoneInY, int zoneOutX, int zoneOutY, int distanceToZone) {
         for (int i = 0; i < 3; i++) {
             if (trem[i] == null) {
-                trem[i] = new Trem(id, maxX, minX, maxY, minY, mapa, x, y, zoneInX, zoneInY, zoneOutX, zoneOutY, 0);
+                trem[i] = new Train(id, maxX, minX, maxY, minY, mapa, x, y, zoneInX, zoneInY, zoneOutX, zoneOutY, distanceToZone, calculador);
                 map.addTrain(trem[i]);
                 break;
             }
         }
-
     }
 
     public void printFuncionou() {
