@@ -79,12 +79,16 @@ public class TremCliente extends JFrame {
         controller.changeSpeed(0, 10);
         controller.changeSpeed(1, 10);
         controller.changeSpeed(2, 10);
+        
+        
+        
         for(int i=0; i<20;i++){
             System.out.print("Digite o numero do trem: ");
             int index = scan1.nextInt();
             System.out.print("Digite a velocidade: ");
             int sp = scan2.nextInt();
             controller.changeSpeed(index, sp);
+//            System.out.println(controller.firstToEnter(0));
             System.out.println("\n\n\n\n\n\n\n");
         }    
        

@@ -166,4 +166,31 @@ public class Operations {
             System.out.println("Id invalido");
     }
 
+    public void changeSpeedsIn(Train train0, int speed){
+        Train train1;
+        Train train2;
+        if(train0.getId() == 0){
+            train1 = trains[1];
+            train2 = trains[2];
+            auxChangeSpeedsIn(train1, train2, speed);
+        }else if(train0.getId() == 1){
+            train1 = trains[0];
+            train2 = trains[2];
+            auxChangeSpeedsIn(train1, train2, speed);
+        }else if(train0.getId() == 2){
+            train1 = trains[0];
+            train2 = trains[1];
+            auxChangeSpeedsIn(train1, train2, speed);
+        }else{
+            System.out.println("Id inválido");
+        }    
+    }
+    
+    private void auxChangeSpeedsIn(Train train1, Train train2, int speed){
+        train1.setMaxSpeed(speed);
+        train2.setMaxSpeed(speed);
+        train1.setSpeed(speed);
+        train2.setSpeed(speed);
+    }
+        
 }

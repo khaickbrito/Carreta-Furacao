@@ -204,15 +204,11 @@ public class Train {
     }
 
     public boolean setSpeed(int newSpeed) {
-        if (newSpeed >= maxSystemSpeed || newSpeed == 0) {
-            if(newSpeed >= maxSpeed){
-                this.speed = newSpeed;
-                return true;
-            } else
-                return false;
-        } else {
+        if (newSpeed >= maxSpeed || newSpeed == 0){
+            this.speed = newSpeed;
+            return true;
+        }else
             return false;
-        }
     }
 
     private class TremThread implements Runnable {
@@ -229,26 +225,24 @@ public class Train {
                 if(speed!=0){
                     if (calculador.isEntryingZone(trem)) {
                         Train firstTrain = calculador.firstToEnter(trem);
-                        if(id == 1)
-                            System.out.println(firstTrain.getId());
-//                        System.out.println(distanceToZone);
-//                        System.out.println("Train " + id + " is coming in");
-//                        System.out.println("Calculate Speeds");
+                        
+                                System.out.println(firstTrain.getId());
+                                calculador.changeSpeedsIn(trem,0);
+                                
+                                
                         move();
                         distanceToZone--;
                     } else if (calculador.isInZone(trem)) {
                         if (calculador.isLeavingZone(trem)) {
+                            
+                                calculador.changeSpeedsIn(trem, 10);
+                            
                             calculador.putDistance(trem);
-//                            System.out.println("Trem " + id + " SAIU");
-//                            System.out.println("Bring speeds back");
-                            //Devolve os MaxSpeed para MaxSystemSpeed
                             move();
                         } else {
-    //                        System.out.println("X: " + x + "   Y: " + y);
                             move();
                         }
                     } else {
-//                        System.out.println(distanceToZone);
                         distanceToZone--;
                         move();
                     }
