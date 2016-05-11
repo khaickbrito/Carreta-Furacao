@@ -85,9 +85,9 @@ public class TremController {
     /*
         Muda a velocidade de um trem pelo RMI.
      */
-    public boolean changeSpeedRMI(int id, int speed) {
+    public boolean changeSpeedRMI(int idDestinatario, int id, int speed) {
         try {
-            return clientes[id].sendNewSpeed(id, speed);
+            return clientes[idDestinatario].sendNewSpeed(id, speed);
 
         } catch (RemoteException ex) {
             Logger.getLogger(TremController.class.getName()).log(Level.SEVERE, null, ex);
@@ -103,9 +103,9 @@ public class TremController {
         return trains[id].setMaxSpeed(newMaxSpeed);
     }
 
-    public boolean changeMaxSpeedRMI(int id, int newMaxSpeed) {
+    public boolean changeMaxSpeedRMI(int idDestinatario, int id, int newMaxSpeed) {
         try {
-            return clientes[id].sendMaxSpeed(id, newMaxSpeed);
+            return clientes[idDestinatario].sendMaxSpeed(id, newMaxSpeed);
         } catch (RemoteException ex) {
             Logger.getLogger(TremController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -124,10 +124,12 @@ public class TremController {
         Train aux = operator.firstToEnter(trains[id]);
         return (aux.getId());
     }
+    
 
-    public void returnOldSpeed() {
-        trains[0].returnOldSpeeds();
-        trains[1].returnOldSpeeds();
-        trains[2].returnOldSpeeds();
-    }
+//    public void returnOldSpeed(int id, int speed) {
+//        
+//        trains[0].returnOldSpeeds();
+//        trains[1].returnOldSpeeds();
+//        trains[2].returnOldSpeeds();
+//    }
 }

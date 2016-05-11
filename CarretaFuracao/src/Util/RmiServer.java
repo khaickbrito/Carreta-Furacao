@@ -84,7 +84,7 @@ public class RmiServer extends UnicastRemoteObject implements RmiServerInterface
 
     @Override
     public void returnOldSpeed() throws RemoteException {
-        controller.returnOldSpeed();
+//        controller.returnOldSpeed();
     }
 
 }

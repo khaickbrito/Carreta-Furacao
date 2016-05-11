@@ -31,13 +31,13 @@ public class Train {
     private Map mapa;
     private int x;
     private int y;
-    private long maxSystemSpeed = 20;
-    private long maxSpeed = 40;
+    private long maxSystemSpeed = 10;
+    private long maxSpeed = 10;
     private int speed = 0;
     private int distanceToZone;
     private int myDistanceInZone;
-    private int myOldSpeed = 0;
-    private long myOldMaxSpeed = 40;
+//    private int myOldSpeed = 0;
+//    private long myOldMaxSpeed = 40;
     private boolean isZone = false;
 
     public void setIsZone(boolean isZone) {
@@ -48,21 +48,21 @@ public class Train {
         return isZone;
     }
 
-    public int getMyOldSpeed() {
-        return myOldSpeed;
-    }
-
-    public void setMyOldSpeed(int myOldSpeed) {
-        this.myOldSpeed = myOldSpeed;
-    }
-
-    public void setMyOldMaxSpeed(int myOldMaxSpeed) {
-        this.myOldMaxSpeed = myOldMaxSpeed;
-    }
-
-    public long getMyOldMaxSpeed() {
-        return myOldMaxSpeed;
-    }
+//    public int getMyOldSpeed() {
+//        return myOldSpeed;
+//    }
+//
+//    public void setMyOldSpeed(int myOldSpeed) {
+//        this.myOldSpeed = myOldSpeed;
+//    }
+//
+//    public void setMyOldMaxSpeed(int myOldMaxSpeed) {
+//        this.myOldMaxSpeed = myOldMaxSpeed;
+//    }
+//
+//    public long getMyOldMaxSpeed() {
+//        return myOldMaxSpeed;
+//    }
 
     public int getMyDistanceInZone() {
         return myDistanceInZone;
@@ -230,7 +230,7 @@ public class Train {
 
     public boolean setMaxSpeed(long maxSpeed) {
         if (maxSpeed <= maxSystemSpeed) {
-            this.myOldMaxSpeed = this.maxSpeed;
+//            this.myOldMaxSpeed = this.maxSpeed;
             this.maxSpeed = maxSpeed;
             return true;
         } else {
@@ -246,7 +246,7 @@ public class Train {
         if (newSpeed > maxSpeed) {
             return false;
         } else {
-            this.myOldSpeed = speed;
+//            this.myOldSpeed = speed;
             this.speed = newSpeed;
             return true;
         }
@@ -277,7 +277,8 @@ public class Train {
                          */
                         
                         Train firstTrain = calculador.firstToEnter(trem);
-                        calculador.changeSpeedsIn(trem, 10);
+                        trem.setSpeed(10);
+                        calculador.changeMySpeedRMI(id, 10);
                         
                         
                         int timeInZone = calculador.timeInZone(trem);
@@ -290,7 +291,7 @@ public class Train {
                         if (calculador.isLeavingZone(trem)) {
                        
 //                            calculador.changeSpeedsIn(trem, 10);
-                            calculador.returnOldSpeeds();
+                            calculador.returnOldSpeeds(trem, 10);
                             calculador.putDistance(trem);
                             move();
                         } else {

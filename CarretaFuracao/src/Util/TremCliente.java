@@ -58,21 +58,19 @@ public class TremCliente extends JFrame {
                     } else {
                         System.out.println("Id inválido.");
                     }
-                }if (porta == 10100) {
-                        porta = 10101;
-                    } else if (porta == 10101) {
-                        porta = 10102;
-                    } else if (porta == 10102) {
-                        porta = 10100;
-                    }
+                }
+                if (porta == 10100) {
+                    porta = 10101;
+                } else if (porta == 10101) {
+                    porta = 10102;
+                } else if (porta == 10102) {
+                    porta = 10100;
+                }
 
-            
-         
-         
                 if (myport == porta) {
                     continue;
                 }
-              
+
 //                System.out.println("port1"+port1);
 //                System.out.println("porta" + porta);
 //                if (myport != 0) {
@@ -110,7 +108,7 @@ public class TremCliente extends JFrame {
 
         System.out.println("passou aqui");
         try {
-            
+
             RmiServerInterface trem1 = (RmiServerInterface) reg1.lookup("RmiServer");
             RmiServerInterface trem2 = (RmiServerInterface) reg2.lookup("RmiServer");
             controller.addRmi(trem1.getId(), trem1);
@@ -120,13 +118,18 @@ public class TremCliente extends JFrame {
         } catch (NotBoundException ex) {
             Logger.getLogger(TremCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
-        controller.changeSpeed(myID, 10);
-        controller.changeSpeedRMI(myID, 10);
-        controller.changeSpeedRMI(myID, 10);
 
-        
+        controller.changeSpeed(myID, 10);
+        if (myID != 0) {
+            controller.changeSpeedRMI(0, myID, 10);
+        }
+        if (myID != 1) {
+            controller.changeSpeedRMI(1, myID, 10);
+        }
+        if (myID != 2) {
+            controller.changeSpeedRMI(2, myID, 10);
+        }
+
 //        for(int i=0; i<20;i++){
 //            System.out.print("Digite o numero do trem: ");
 //            int index = scan1.nextInt();

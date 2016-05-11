@@ -219,17 +219,17 @@ public class Operations {
             train2 = trains[2];
             speed = calculateNewSpeed(firstToEnter, time);
 //            System.out.println("VELOCIDADE - " + speed);
-            auxChangeSpeedsIn(train1, train2, speed);
+            changeSpeedsRMI(train1, train2, speed);
         } else if (train0.getId() == 1) {
             train1 = trains[0];
             train2 = trains[2];
             speed = calculateNewSpeed(firstToEnter, time);
-            auxChangeSpeedsIn(train1, train2, speed);
+            changeSpeedsRMI(train1, train2, speed);
         } else if (train0.getId() == 2) {
             train1 = trains[0];
             train2 = trains[1];
             speed = calculateNewSpeed(firstToEnter, time);
-            auxChangeSpeedsIn(train1, train2, speed);
+            changeSpeedsRMI(train1, train2, speed);
         } else {
             System.out.println("Id inválido");
         }
@@ -241,21 +241,38 @@ public class Operations {
         if (train0.getId() == 0) {
             train1 = trains[1];
             train2 = trains[2];
-            auxChangeSpeedsIn(train1, train2, speed);
+            changeSpeedsRMI(train1, train2, speed);
         } else if (train0.getId() == 1) {
             train1 = trains[0];
             train2 = trains[2];
-            auxChangeSpeedsIn(train1, train2, speed);
+            changeSpeedsRMI(train1, train2, speed);
         } else if (train0.getId() == 2) {
             train1 = trains[0];
             train2 = trains[1];
-            auxChangeSpeedsIn(train1, train2, speed);
+            changeSpeedsRMI(train1, train2, speed);
         } else {
             System.out.println("Id inválido");
         }
     }
     
-    public void returnOldSpeeds() {
+    public void returnOldSpeeds(Train train0, int speed) {
+        Train train1;
+        Train train2;
+        if (train0.getId() == 0) {
+            train1 = trains[1];
+            train2 = trains[2];
+            changeSpeedsRMI(train1, train2, speed);
+        } else if (train0.getId() == 1) {
+            train1 = trains[0];
+            train2 = trains[2];
+            changeSpeedsRMI(train1, train2, speed);
+        } else if (train0.getId() == 2) {
+            train1 = trains[0];
+            train2 = trains[1];
+            changeSpeedsRMI(train1, train2, speed);
+        } else {
+            System.out.println("Id inválido");
+        }
         trains[0].returnOldSpeeds();
         trains[1].returnOldSpeeds();
         trains[2].returnOldSpeeds();
@@ -273,20 +290,20 @@ public class Operations {
     public void changeMySpeedRMI(int id, int speed){
         for(Train t : trains){
         if(t.getId() != id)
-            controller.changeSpeedRMI(id, speed);
+            controller.changeSpeedRMI(id, id, speed);
         }
     }
     
-    private void auxChangeSpeedsIn(Train train1, Train train2, int speed) {
+    private void changeSpeedsRMI(Train train1, Train train2, int speed) {
         train1.setMaxSpeed(speed);
-        controller.changeMaxSpeedRMI(train1.getId(), speed);
+        controller.changeMaxSpeedRMI(train1.getId(), train1.getId(), speed);
         train2.setMaxSpeed(speed);
-        controller.changeMaxSpeedRMI(train2.getId(), speed);
+        controller.changeMaxSpeedRMI(train2.getId(), train2.getId(), speed);
         
         train1.setSpeed(speed);
-        controller.changeSpeedRMI(train1.getId(), speed);
+        controller.changeSpeedRMI(train1.getId(), train1.getId(), speed);
         train2.setSpeed(speed);
-        controller.changeSpeedRMI(train2.getId(), speed);
+        controller.changeSpeedRMI(train2.getId(), train2.getId(), speed);
     }
 
 }
