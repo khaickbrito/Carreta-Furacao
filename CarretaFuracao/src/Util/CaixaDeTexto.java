@@ -27,7 +27,7 @@ public class CaixaDeTexto {
         JPanel panel = new JPanel(null);
         panel.setSize(300, 100);
 
-        JLabel pergunta = new JLabel("Digite o IP do servidor central");
+        JLabel pergunta = new JLabel("Digite o IP de um dos trens");
         pergunta.setBounds(0, 0, 300, 50);
         JPanel panel2 = new JPanel();
         JTextField caixaDeTexto = new JTextField();

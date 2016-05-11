@@ -31,10 +31,34 @@ public class Train {
     private Map mapa;
     private int x;
     private int y;
-    private long maxSystemSpeed = 10;
-    private long maxSpeed = 10;
+    private long maxSystemSpeed = 40;
+    private long maxSpeed = 40;
     private int speed = 0;
     private int distanceToZone;
+    private int myDistanceInZone;
+    private int myOldSpeed;
+    private long myOldMaxSpeed;
+
+    public int getMyOldSpeed() {
+        return myOldSpeed;
+    }
+
+    public void setMyOldSpeed(int myOldSpeed) {
+        this.myOldSpeed = myOldSpeed;
+    }
+
+    public void setMyOldMaxSpeed(int myOldMaxSpeed) {
+        this.myOldMaxSpeed = myOldMaxSpeed;
+    }
+
+    public long getMyOldMaxSpeed() {
+        return myOldMaxSpeed;
+    }
+
+    public int getMyDistanceInZone() {
+        return myDistanceInZone;
+    }
+
 //    public boolean id;
     // private int cont;
     private JButton botao;
@@ -56,6 +80,11 @@ public class Train {
         this.x = x;
         this.y = y;
         calculador = calc;
+        if (id == 0) {
+            myDistanceInZone = 250;
+        } else {
+            myDistanceInZone = 375;
+        }
         new Thread(new TremThread(this)).start();
 
 //        campoVelocidade = new JTextField();
@@ -191,7 +220,8 @@ public class Train {
     }
 
     public boolean setMaxSpeed(long maxSpeed) {
-        if (maxSpeed >= maxSystemSpeed) {
+        if (maxSpeed <= maxSystemSpeed) {
+            this.myOldMaxSpeed = this.maxSpeed;
             this.maxSpeed = maxSpeed;
             return true;
         } else {
@@ -204,11 +234,13 @@ public class Train {
     }
 
     public boolean setSpeed(int newSpeed) {
-        if (newSpeed >= maxSpeed || newSpeed == 0){
+        if (newSpeed > maxSpeed) {
+            return false;
+        } else {
+            this.myOldSpeed = speed;
             this.speed = newSpeed;
             return true;
-        }else
-            return false;
+        }
     }
 
     private class TremThread implements Runnable {
@@ -222,21 +254,28 @@ public class Train {
         @Override
         public void run() {
             while (true) {
-                if(speed!=0){
+                if (speed != 0) {
                     if (calculador.isEntryingZone(trem)) {
+                        /*
+                            Calcula quem é o primeiro trem a entrar;
+                            Calcula o tempo que o trem que está na zona vai demorar
+                        dentro da zona.
+                            muda a velocidade dos outros.
+                         */
                         Train firstTrain = calculador.firstToEnter(trem);
+                        trem.setSpeed(10);
+                        int timeInZone = calculador.timeInZone(trem);
+                        System.out.println("TimeInZone = " + timeInZone);
+//                        System.out.println(firstTrain.getId());
+                        calculador.changeSpeedsInByTime(trem, timeInZone, firstTrain);
                         
-                                System.out.println(firstTrain.getId());
-                                calculador.changeSpeedsIn(trem,0);
-                                
-                                
                         move();
                         distanceToZone--;
                     } else if (calculador.isInZone(trem)) {
                         if (calculador.isLeavingZone(trem)) {
-                            
-                                calculador.changeSpeedsIn(trem, 10);
-                            
+
+//                            calculador.changeSpeedsIn(trem, 10);
+                            calculador.returnOldSpeeds();
                             calculador.putDistance(trem);
                             move();
                         } else {
@@ -247,12 +286,17 @@ public class Train {
                         move();
                     }
                     mapa.repaint();
-                }try {
-                    sleep(speed);
+                }
+                try {
+                    if (speed != 0) {
+                        sleep(100 / speed);
+                    } else {
+                        sleep(1000);
+                    }
                 } catch (InterruptedException ex) {
                     Logger.getLogger(Train.class.getName()).log(Level.SEVERE, null, ex);
                 }
-   
+
             }
         }
 

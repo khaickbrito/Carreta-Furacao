@@ -20,6 +20,15 @@ public class TremController {
     private Train[] trains = new Train[3];
     private Map map;
     private Operations operator;
+    private int myid;
+
+    public int getMyid() {
+        return myid;
+    }
+
+    public void setMyid(int myid) {
+        this.myid = myid;
+    }
 
     public TremController() {
         map = Map.getInstance();
