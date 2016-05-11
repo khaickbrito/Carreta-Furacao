@@ -301,7 +301,7 @@ public class Operations {
         controller.changeMaxSpeedRMI(train2.getId(), train2.getId(), speed);
         
         train1.setSpeed(speed);
-        controller.changeSpeedRMI(train1.getId(), train1.getId(), speed);
+        controller.changeSpeedRMI(train1.getId(), train1.getId(), 2);
         train2.setSpeed(speed);
         controller.changeSpeedRMI(train2.getId(), train2.getId(), speed);
     }

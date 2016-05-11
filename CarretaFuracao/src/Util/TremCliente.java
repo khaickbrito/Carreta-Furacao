@@ -118,17 +118,18 @@ public class TremCliente extends JFrame {
         } catch (NotBoundException ex) {
             Logger.getLogger(TremCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        controller.changeSpeed(myID, 10);
-        if (myID != 0) {
-            controller.changeSpeedRMI(0, myID, 10);
-        }
-        if (myID != 1) {
-            controller.changeSpeedRMI(1, myID, 10);
-        }
-        if (myID != 2) {
-            controller.changeSpeedRMI(2, myID, 10);
-        }
+      
+            controller.changeSpeed(myID, 10);
+            if (myID != 0) {
+                controller.changeSpeedRMI(0, myID, 10);
+            }
+            if (myID != 1) {
+                controller.changeSpeedRMI(1, myID, 10);
+            }
+            if (myID != 2) {
+                controller.changeSpeedRMI(2, myID, 10);
+            }
+        
 
 //        for(int i=0; i<20;i++){
 //            System.out.print("Digite o numero do trem: ");
