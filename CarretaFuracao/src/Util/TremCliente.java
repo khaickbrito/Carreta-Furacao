@@ -6,9 +6,13 @@
 package Util;
 
 import Controller.TremController;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 
 /**
@@ -28,11 +32,12 @@ public class TremCliente extends JFrame {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        int porta = 10100;
+        int porta = 10100, myID;
         int myport = 0, port1 = 0, port2 = 0;
         boolean continua = true;
         Scanner scan1 = new Scanner(System.in);
         Scanner scan2 = new Scanner(System.in);
+        myID = scan1.nextInt();
         while (continua) {
             try {
                 if (myport == 0) {
@@ -53,13 +58,13 @@ public class TremCliente extends JFrame {
                 }
                 if (port1 == 0) {
                     reg1 = LocateRegistry.getRegistry(porta);
-                    RmiServerInterface trem1 = (RmiServerInterface) reg1.lookup("RmiServer");
+                    
                     port1 = porta;
                     
                 }
                 if (port2 == 0 && porta != port1) {
                     reg2 = LocateRegistry.getRegistry(porta);
-                    RmiServerInterface trem2 = (RmiServerInterface) reg2.lookup("RmiServer");
+                    
                     continua = false;
                 }
                 
@@ -77,10 +82,32 @@ public class TremCliente extends JFrame {
             }
         }
         
+        try {
+            RmiServerInterface trem1 = (RmiServerInterface) reg1.lookup("RmiServer");
+            RmiServerInterface trem2 = (RmiServerInterface) reg2.lookup("RmiServer");
+            
+            
+            
+        } catch (RemoteException ex) {
+            Logger.getLogger(TremCliente.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NotBoundException ex) {
+            Logger.getLogger(TremCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
-        controller.changeSpeed(0, 10);
-        controller.changeSpeed(1, 10);
-        controller.changeSpeed(2, 10);
+        
+        
+        
+        if (myID == 0) {
+            controller.addTrem(0, 520, 270, 295, 170, 270, 294, 520, 295, 270, 295, 499);
+        } else if (myID == 1) {
+            controller.addTrem(1, 395, 145, 545, 295, 145, 545, 270, 295, 395, 545, 375);
+        } else if (myID == 2) {
+            controller.addTrem(2, 645, 395, 545, 295, 645, 545, 395, 545, 520, 295, 250);
+        } else {
+            System.out.println("Id inválido.");
+        }
+        
+        controller.changeSpeed(myID, 10);
         
         
         

@@ -301,7 +301,7 @@ public class Train {
                     if (speed != 0) {
                         sleep(100 / speed);
                     } else {
-                        sleep(1000);
+                        sleep(10);
                     }
                 } catch (InterruptedException ex) {
                     Logger.getLogger(Train.class.getName()).log(Level.SEVERE, null, ex);
