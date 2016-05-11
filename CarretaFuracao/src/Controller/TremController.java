@@ -6,6 +6,7 @@
 package Controller;
 
 import Model.Map;
+import Model.SharedZoneObserver;
 import Model.Train;
 import Util.Operations;
 
@@ -26,6 +27,7 @@ public class TremController {
         addTrem(0, 520, 270, 295, 170, map, 270, 294, 520, 295, 270, 295, 499);
         addTrem(1, 395, 145, 545, 295, map, 145, 545, 270, 295, 395, 545, 375);
         addTrem(2, 645, 395, 545, 295, map, 645, 545, 395, 545, 520, 295, 250);
+        new Thread(new SharedZoneObserver(trains[0])).start();
     }
 
     public static TremController getInstance() {

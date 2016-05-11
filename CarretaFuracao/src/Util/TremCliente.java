@@ -76,6 +76,8 @@ public class TremCliente extends JFrame {
                 }
             }
         }
+        
+        
         controller.changeSpeed(0, 10);
         controller.changeSpeed(1, 10);
         controller.changeSpeed(2, 10);
