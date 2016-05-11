@@ -6,6 +6,7 @@
 package Model;
 
 import Util.RmiServer;
+import Util.RmiServerInterface;
 
 /**
  *
@@ -13,14 +14,14 @@ import Util.RmiServer;
  */
 public class Cliente {
     
-    private RmiServer cliente;
+    private RmiServerInterface cliente;
     private Train trem;
     
-    public Cliente(RmiServer c){
+    public Cliente(RmiServerInterface c){
         this.cliente = c;
     }
 
-    public RmiServer getCliente() {
+    public RmiServerInterface getCliente() {
         return cliente;
     }
 

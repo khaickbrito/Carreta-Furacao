@@ -15,14 +15,14 @@ public interface RmiServerInterface extends Remote{
     
     public void sendSelfPosition(int id, int x, int y) throws RemoteException;
     
-    public boolean sendSelfVelocity(int id, int veloc) throws RemoteException;
+    public boolean sendNewSpeed(int id, int veloc) throws RemoteException;
     
-    public boolean changeTrainVelocity(int newVeloc) throws RemoteException;
-    
-    public boolean sendMaxSpeed(int Maxspeed) throws RemoteException;
+    public boolean sendMaxSpeed(int id, int Maxspeed) throws RemoteException;
     
     public void imHere(int id) throws RemoteException;
       
     public int getId() throws RemoteException;
+    
+    public void returnOldSpeed() throws RemoteException;
     
 }

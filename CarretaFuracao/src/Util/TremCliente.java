@@ -47,6 +47,7 @@ public class TremCliente extends JFrame {
                     selfReg = LocateRegistry.createRegistry(porta);
                     myport = porta;
                     RmiServerInterface meuObjeto = new RmiServer(myID);
+                    controller.addRmi(myID, meuObjeto);
                     selfReg.rebind("RmiServer", meuObjeto);
                     if (myID == 0) {
                         controller.addTrem(0, 520, 270, 295, 170, 270, 294, 520, 295, 270, 295, 499);
@@ -109,15 +110,21 @@ public class TremCliente extends JFrame {
 
         System.out.println("passou aqui");
         try {
+            
             RmiServerInterface trem1 = (RmiServerInterface) reg1.lookup("RmiServer");
             RmiServerInterface trem2 = (RmiServerInterface) reg2.lookup("RmiServer");
-
+            controller.addRmi(trem1.getId(), trem1);
+            controller.addRmi(trem2.getId(), trem2);
         } catch (RemoteException ex) {
             Logger.getLogger(TremCliente.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NotBoundException ex) {
             Logger.getLogger(TremCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        
+        controller.changeSpeed(myID, 10);
+        controller.changeSpeedRMI(myID, 10);
+        controller.changeSpeedRMI(myID, 10);
 
         
 //        for(int i=0; i<20;i++){

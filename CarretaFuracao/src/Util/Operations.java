@@ -5,6 +5,7 @@
  */
 package Util;
 
+import Controller.TremController;
 import Model.Train;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -17,9 +18,11 @@ import java.util.List;
 public class Operations {
 
     private Train[] trains;
-
-    public Operations(Train[] trains) {
+    private TremController controller;
+    
+    public Operations(Train[] trains, TremController c) {
         this.trains = trains;
+        controller = c;
     }
 
     public boolean isInZone(Train train) {
@@ -207,13 +210,6 @@ public class Operations {
     }
 
     public void changeSpeedsInByTime(Train train0, int time, Train firstToEnter) {
-//        for(Train t : trains){
-//            System.out.println("ID = " + t.getId());
-//            System.out.println("OldMaxSpeed = " + t.getMyOldMaxSpeed());
-//            System.out.println("MaxSpeed = " + t.getMaxSpeed());
-//            System.out.println("OldSpeed" + t.getMyOldSpeed());
-//            System.out.println("Speed = "+ t.getSpeed());
-//        }
         Train train1;
         Train train2;
         int speed;
@@ -274,11 +270,23 @@ public class Operations {
 //        trains[2].setSpeed(trains[2].getMyOldSpeed());
     }
 
+    public void changeMySpeedRMI(int id, int speed){
+        for(Train t : trains){
+        if(t.getId() != id)
+            controller.changeSpeedRMI(id, speed);
+        }
+    }
+    
     private void auxChangeSpeedsIn(Train train1, Train train2, int speed) {
         train1.setMaxSpeed(speed);
+        controller.changeMaxSpeedRMI(train1.getId(), speed);
         train2.setMaxSpeed(speed);
+        controller.changeMaxSpeedRMI(train2.getId(), speed);
+        
         train1.setSpeed(speed);
+        controller.changeSpeedRMI(train1.getId(), speed);
         train2.setSpeed(speed);
+        controller.changeSpeedRMI(train2.getId(), speed);
     }
 
 }

@@ -44,17 +44,8 @@ public class RmiServer extends UnicastRemoteObject implements RmiServerInterface
     eles ficarão sabendo de sua velocidade atual.
      */
     @Override
-    public boolean sendSelfVelocity(int id, int veloc) throws RemoteException {
+    public boolean sendNewSpeed(int id, int veloc) throws RemoteException {
         return controller.changeSpeed(id, veloc);
-    }
-
-    /*
-        Serve para alterar a velocidade do trem portador desse registro aqui.
-     */
-    @Override
-    public boolean changeTrainVelocity(int newVeloc) throws RemoteException {
-        controller.changeSpeed(facade.getMyId(), newVeloc);
-        return true;
     }
 
     /*
@@ -62,8 +53,8 @@ public class RmiServer extends UnicastRemoteObject implements RmiServerInterface
     ma que ele pode trafegar sem invadir a zona compartilhada.
      */
     @Override
-    public boolean sendMaxSpeed(int Maxspeed) throws RemoteException {
-        return controller.changeMaxSpeed(facade.getMyId(), Maxspeed);
+    public boolean sendMaxSpeed(int id, int Maxspeed) throws RemoteException {
+        return controller.changeMaxSpeed(id, Maxspeed);
     }
 
     @Override
@@ -89,6 +80,11 @@ public class RmiServer extends UnicastRemoteObject implements RmiServerInterface
             System.out.println("Id inválido.");
         }
 
+    }
+
+    @Override
+    public void returnOldSpeed() throws RemoteException {
+        controller.returnOldSpeed();
     }
 
 }

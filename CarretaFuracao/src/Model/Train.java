@@ -38,6 +38,15 @@ public class Train {
     private int myDistanceInZone;
     private int myOldSpeed = 0;
     private long myOldMaxSpeed = 40;
+    private boolean isZone = false;
+
+    public void setIsZone(boolean isZone) {
+        this.isZone = isZone;
+    }
+
+    public boolean isIsZone() {
+        return isZone;
+    }
 
     public int getMyOldSpeed() {
         return myOldSpeed;
@@ -244,8 +253,7 @@ public class Train {
     }
     
     public void returnOldSpeeds(){
-        this.maxSpeed = myOldMaxSpeed;
-        speed = myOldSpeed;
+        this.maxSpeed = maxSystemSpeed;
     }
 
     private class TremThread implements Runnable {
@@ -269,7 +277,8 @@ public class Train {
                          */
                         
                         Train firstTrain = calculador.firstToEnter(trem);
-                        trem.setSpeed(10);
+                        calculador.changeSpeedsIn(trem, 10);
+                        
                         
                         int timeInZone = calculador.timeInZone(trem);
 

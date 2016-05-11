@@ -7,9 +7,12 @@ package Controller;
 
 import Model.Cliente;
 import Model.Map;
-import Model.SharedZoneObserver;
 import Model.Train;
 import Util.Operations;
+import Util.RmiServerInterface;
+import java.rmi.RemoteException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -17,12 +20,12 @@ import Util.Operations;
  */
 public class TremController {
 
-    private static TremController instance = new TremController();
     private Train[] trains = new Train[3];
     private Map map;
     private Operations operator;
     private int myid;
-    private Cliente[] clientes = new Cliente[3];
+    private RmiServerInterface[] clientes = new RmiServerInterface[3];
+    private static TremController instance = new TremController();
 
     public int getMyid() {
         return myid;
@@ -35,7 +38,7 @@ public class TremController {
 
     public TremController() {
         map = Map.getInstance();
-        operator = new Operations(trains);
+        operator = new Operations(trains, this);
 //        addTrem(0, 520, 270, 295, 170, map, 270, 294, 520, 295, 270, 295, 499);
 //        addTrem(1, 395, 145, 545, 295, map, 145, 545, 270, 295, 395, 545, 375);
 //        addTrem(2, 645, 395, 545, 295, map, 645, 545, 395, 545, 520, 295, 250);
@@ -46,9 +49,12 @@ public class TremController {
         return instance;
     }
 
+    public void addRmi(int id, RmiServerInterface rmi) {
+        clientes[id] = rmi;
+    }
+
     public void addTrem(int id, int maxX, int minX, int maxY, int minY, int x, int y, int zoneInX, int zoneInY, int zoneOutX, int zoneOutY, int distanceToZone) {
         trains[id] = new Train(id, maxX, minX, maxY, minY, map, x, y, zoneInX, zoneInY, zoneOutX, zoneOutY, distanceToZone, operator);
-        
         map.addTrain(trains[id]);
         System.out.println("Adicionou trem");
         map.repaint();
@@ -62,7 +68,31 @@ public class TremController {
         Muda a velocidade de um determinado trem que está no mapa.
      */
     public boolean changeSpeed(int id, int speed) {
+//        if(id == myid){
+//            for(Train t : trains){
+//                if(t.getId() != myid)
+//                    try {
+//                        clientes[id].sendNewSpeed(id, speed);
+//                } catch (RemoteException ex) {
+//                    Logger.getLogger(TremController.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//            }
+//        }
         return trains[id].setSpeed(speed);
+
+    }
+
+    /*
+        Muda a velocidade de um trem pelo RMI.
+     */
+    public boolean changeSpeedRMI(int id, int speed) {
+        try {
+            return clientes[id].sendNewSpeed(id, speed);
+
+        } catch (RemoteException ex) {
+            Logger.getLogger(TremController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 
     /*
@@ -71,6 +101,15 @@ public class TremController {
      */
     public boolean changeMaxSpeed(int id, int newMaxSpeed) {
         return trains[id].setMaxSpeed(newMaxSpeed);
+    }
+
+    public boolean changeMaxSpeedRMI(int id, int newMaxSpeed) {
+        try {
+            return clientes[id].sendMaxSpeed(id, newMaxSpeed);
+        } catch (RemoteException ex) {
+            Logger.getLogger(TremController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 
     /*
@@ -84,5 +123,11 @@ public class TremController {
     public int firstToEnter(int id) {
         Train aux = operator.firstToEnter(trains[id]);
         return (aux.getId());
+    }
+
+    public void returnOldSpeed() {
+        trains[0].returnOldSpeeds();
+        trains[1].returnOldSpeeds();
+        trains[2].returnOldSpeeds();
     }
 }
