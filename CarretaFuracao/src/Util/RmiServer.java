@@ -78,11 +78,11 @@ public class RmiServer extends UnicastRemoteObject implements RmiServerInterface
     @Override
     public void imHere(int id) throws RemoteException {
         if (id == 0) {
-
+            controller.addTrem(0, 520, 270, 295, 170, 270, 294, 520, 295, 270, 295, 499);
         } else if (id == 1) {
-
+            controller.addTrem(1, 395, 145, 545, 295, 145, 545, 270, 295, 395, 545, 375);
         } else if (id == 2) {
-
+            controller.addTrem(2, 645, 395, 545, 295, 645, 545, 395, 545, 520, 295, 250);
         } else {
             System.out.println("Id inválido.");
         }
