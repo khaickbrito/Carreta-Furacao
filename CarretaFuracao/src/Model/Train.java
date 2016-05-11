@@ -31,13 +31,13 @@ public class Train {
     private Map mapa;
     private int x;
     private int y;
-    private long maxSystemSpeed = 40;
+    private long maxSystemSpeed = 20;
     private long maxSpeed = 40;
     private int speed = 0;
     private int distanceToZone;
     private int myDistanceInZone;
-    private int myOldSpeed;
-    private long myOldMaxSpeed;
+    private int myOldSpeed = 0;
+    private long myOldMaxSpeed = 40;
 
     public int getMyOldSpeed() {
         return myOldSpeed;
@@ -211,9 +211,9 @@ public class Train {
         return maxSystemSpeed;
     }
 
-    public void setMaxSystemSpeed(long maxSystemSpeed) {
-        this.maxSystemSpeed = maxSystemSpeed;
-    }
+//    public void setMaxSystemSpeed(long maxSystemSpeed) {
+//        this.maxSystemSpeed = maxSystemSpeed;
+//    }
 
     public long getMaxSpeed() {
         return maxSpeed;
@@ -242,6 +242,11 @@ public class Train {
             return true;
         }
     }
+    
+    public void returnOldSpeeds(){
+        this.maxSpeed = myOldMaxSpeed;
+        speed = myOldSpeed;
+    }
 
     private class TremThread implements Runnable {
 
@@ -262,10 +267,15 @@ public class Train {
                         dentro da zona.
                             muda a velocidade dos outros.
                          */
+                        
                         Train firstTrain = calculador.firstToEnter(trem);
                         trem.setSpeed(10);
+//                        
+//                        System.out.println("-------------------");
+//                        System.out.println("Velocidade maxima = " + trem.getMaxSpeed());
+//                        System.out.println("Velocidade do trem na zona = " + trem.getSpeed());
                         int timeInZone = calculador.timeInZone(trem);
-                        System.out.println("TimeInZone = " + timeInZone);
+//                        System.out.println("TimeInZone = " + timeInZone);
 //                        System.out.println(firstTrain.getId());
                         calculador.changeSpeedsInByTime(trem, timeInZone, firstTrain);
                         
@@ -273,7 +283,7 @@ public class Train {
                         distanceToZone--;
                     } else if (calculador.isInZone(trem)) {
                         if (calculador.isLeavingZone(trem)) {
-
+                       
 //                            calculador.changeSpeedsIn(trem, 10);
                             calculador.returnOldSpeeds();
                             calculador.putDistance(trem);

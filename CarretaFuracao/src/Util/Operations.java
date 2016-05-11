@@ -141,19 +141,38 @@ public class Operations {
         }
     }
 
-    private Train auxFirstToEnter(Train trem1, Train trem2) {
-        int speed1 = trem1.getSpeed();
-        int speed2 = trem2.getSpeed();
+//    private Train auxFirstToEnter(Train trem1, Train trem2) {
+//        int speed1 = trem1.getSpeed();
+//        int speed2 = trem2.getSpeed();
+//        int dist1 = trem1.getDistanceToZone();
+//        int dist2 = trem2.getDistanceToZone();
+//        float time1 = dist1 / speed1;
+//        float time2 = dist2 / speed2;
+//
+//        if (time1 < time2) {
+//            return trem1;
+//        } else if (time2 > time1) {
+//            return trem2;
+//        } else {
+//            System.out.println("Random");
+//            List random = new ArrayList();
+//            random.add(trem1);
+//            random.add(trem2);
+//            Collections.shuffle(random);
+//            return ((Train) random.get(0));
+//        }
+//    }
+    
+        private Train auxFirstToEnter(Train trem1, Train trem2) {
         int dist1 = trem1.getDistanceToZone();
         int dist2 = trem2.getDistanceToZone();
-        float time1 = dist1 / speed1;
-        float time2 = dist2 / speed2;
 
-        if (time1 < time2) {
+        if (dist1 < dist2) {
             return trem1;
-        } else if (time2 > time1) {
+        } else if (dist2 < dist1) {
             return trem2;
         } else {
+            System.out.println("Random");
             List random = new ArrayList();
             random.add(trem1);
             random.add(trem2);
@@ -183,20 +202,27 @@ public class Operations {
     public int calculateNewSpeed(Train trem, int time) {
         System.out.println("Distancia para a zona do trem " + trem.getId() + " = " + trem.getDistanceToZone());
 
-        System.out.println("nova velocidade = " + trem.getDistanceToZone()/time);
-        return trem.getDistanceToZone() / time;
+        System.out.println("nova velocidade = " + trem.getDistanceToZone()/time + "porque distancia = " + trem.getDistanceToZone()+" e tempo = " + time);
+        return (int)((trem.getDistanceToZone() / time)*0.7);
     }
 
     public void changeSpeedsInByTime(Train train0, int time, Train firstToEnter) {
+//        for(Train t : trains){
+//            System.out.println("ID = " + t.getId());
+//            System.out.println("OldMaxSpeed = " + t.getMyOldMaxSpeed());
+//            System.out.println("MaxSpeed = " + t.getMaxSpeed());
+//            System.out.println("OldSpeed" + t.getMyOldSpeed());
+//            System.out.println("Speed = "+ t.getSpeed());
+//        }
         Train train1;
         Train train2;
         int speed;
-        System.out.println("ChangeSpeedsInByTime");
+//        System.out.println("ChangeSpeedsInByTime");
         if (train0.getId() == 0) {
             train1 = trains[1];
             train2 = trains[2];
             speed = calculateNewSpeed(firstToEnter, time);
-            System.out.println("VELOCIDADE - " + speed);
+//            System.out.println("VELOCIDADE - " + speed);
             auxChangeSpeedsIn(train1, train2, speed);
         } else if (train0.getId() == 1) {
             train1 = trains[0];
@@ -234,12 +260,18 @@ public class Operations {
     }
     
     public void returnOldSpeeds() {
-        trains[0].setMaxSpeed(trains[0].getMyOldMaxSpeed());
-        trains[0].setSpeed(trains[0].getMyOldSpeed());
-        trains[1].setMaxSpeed(trains[1].getMyOldMaxSpeed());
-        trains[1].setSpeed(trains[1].getMyOldSpeed());
-        trains[2].setMaxSpeed(trains[2].getMyOldMaxSpeed());
-        trains[2].setSpeed(trains[2].getMyOldSpeed());
+        trains[0].returnOldSpeeds();
+        trains[1].returnOldSpeeds();
+        trains[2].returnOldSpeeds();
+//        trains[0].setMaxSpeed(trains[0].getMyOldMaxSpeed());
+//        trains[0].setSpeed(trains[0].getMyOldSpeed());
+//        long trem1OldMaxSpeed = trains[1].getMyOldMaxSpeed();
+//        trains[1].setMaxSpeed(trem1OldMaxSpeed);
+//        int trem1OldSpeed = trains[1].getMyOldSpeed();
+//        System.out.println("TREM 1 NOVA SPEED" + trem1OldSpeed);
+//        trains[1].setSpeed(trem1OldSpeed);
+//        trains[2].setMaxSpeed(trains[2].getMyOldMaxSpeed());
+//        trains[2].setSpeed(trains[2].getMyOldSpeed());
     }
 
     private void auxChangeSpeedsIn(Train train1, Train train2, int speed) {
