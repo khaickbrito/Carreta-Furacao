@@ -33,49 +33,49 @@ public class TremCliente extends JFrame {
         boolean continua = true;
         Scanner scan1 = new Scanner(System.in);
         Scanner scan2 = new Scanner(System.in);
-//        while (continua) {
-//            try {
-//                if (myport == 0) {
-//                    selfReg = LocateRegistry.createRegistry(porta);
-//                    myport = porta;
-//                    RmiServerInterface meuObjeto = new RmiServer();
-//                    selfReg.rebind("RmiServer", meuObjeto);
-//                } else if (porta == 10100) {
-//                    porta = 10101;
-//                } else if (porta == 10101) {
-//                    porta = 10102;
-//                } else {
-//                    porta = 10100;
-//                }
-//
-//                if (myport == porta) {
-//                    continue;
-//                }
-//                if (port1 == 0) {
-//                    reg1 = LocateRegistry.getRegistry(porta);
-//                    RmiServerInterface trem1 = (RmiServerInterface) reg1.lookup("RmiServer");
-//                    port1 = porta;
-//                    
-//                }
-//                if (port2 == 0 && porta != port1) {
-//                    reg2 = LocateRegistry.getRegistry(porta);
-//                    RmiServerInterface trem2 = (RmiServerInterface) reg2.lookup("RmiServer");
-//                    continua = false;
-//                }
-//                
-//            } catch (Exception ex) {
-//                if (!continua) {
-//                    break;
-//                }
-//                if (porta == 10100) {
-//                    porta = 10101;
-//                } else if (porta == 10101) {
-//                    porta = 10102;
-//                } else {
-//                    porta = 10100;
-//                }
-//            }
-//        }
+        while (continua) {
+            try {
+                if (myport == 0) {
+                    selfReg = LocateRegistry.createRegistry(porta);
+                    myport = porta;
+                    RmiServerInterface meuObjeto = new RmiServer();
+                    selfReg.rebind("RmiServer", meuObjeto);
+                } else if (porta == 10100) {
+                    porta = 10101;
+                } else if (porta == 10101) {
+                    porta = 10102;
+                } else {
+                    porta = 10100;
+                }
+
+                if (myport == porta) {
+                    continue;
+                }
+                if (port1 == 0) {
+                    reg1 = LocateRegistry.getRegistry(porta);
+                    RmiServerInterface trem1 = (RmiServerInterface) reg1.lookup("RmiServer");
+                    port1 = porta;
+                    
+                }
+                if (port2 == 0 && porta != port1) {
+                    reg2 = LocateRegistry.getRegistry(porta);
+                    RmiServerInterface trem2 = (RmiServerInterface) reg2.lookup("RmiServer");
+                    continua = false;
+                }
+                
+            } catch (Exception ex) {
+                if (!continua) {
+                    break;
+                }
+                if (porta == 10100) {
+                    porta = 10101;
+                } else if (porta == 10101) {
+                    porta = 10102;
+                } else {
+                    porta = 10100;
+                }
+            }
+        }
         
         
         controller.changeSpeed(0, 10);

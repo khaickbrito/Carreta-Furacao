@@ -12,33 +12,35 @@ import java.rmi.server.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class RmiServer extends UnicastRemoteObject implements RmiServerInterface{  
+public class RmiServer extends UnicastRemoteObject implements RmiServerInterface {
+
     private TremController controller;
-    
-    public RmiServer() throws RemoteException{
+
+    public RmiServer() throws RemoteException {
         // construtor padrão
-        this.controller = TremController.getInstance();  
-    }  
+        this.controller = TremController.getInstance();
+    }
 
     /*
         Serve para enviar a própria posição para os trens vizinhos.
-    */
+     */
     @Override
     public boolean sendSelfDistance(double dist) throws RemoteException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
     /*
         Serve para enviar a sua própria posição para os trens vizinhos.
-    */
+     */
     @Override
     public void sendSelfPosition(int id, int x, int y) throws RemoteException {
         controller.changePosition(id, x, y);
     }
+
     /*
         Serve para um trem envir sua própria velocidade para os outros, assim 
     eles ficarão sabendo de sua velocidade atual.
-    */
+     */
     @Override
     public boolean sendSelfVelocity(int id, int veloc) throws RemoteException {
         return controller.changeSpeed(id, veloc);
@@ -46,25 +48,45 @@ public class RmiServer extends UnicastRemoteObject implements RmiServerInterface
 
     /*
         Serve para alterar a velocidade do trem portador desse registro aqui.
-    */
+     */
     @Override
     public boolean changeTrainVelocity(int newVeloc) throws RemoteException {
         controller.changeSpeed(facade.getMyId(), newVeloc);
         return true;
     }
-    
+
     /*
         Serve para enviar para o trem portador desse registro a velocidade máxi-
     ma que ele pode trafegar sem invadir a zona compartilhada.
-    */
+     */
     @Override
     public boolean sendMaxSpeed(int Maxspeed) throws RemoteException {
         return controller.changeMaxSpeed(facade.getMyId(), Maxspeed);
     }
-    
+
     @Override
     public String[] getTrainsIp() throws RemoteException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    /*
     
+    addTrem(0, 520, 270, 295, 170, map, 270, 294, 520, 295, 270, 295, 499);
+        addTrem(1, 395, 145, 545, 295, map, 145, 545, 270, 295, 395, 545, 375);
+        addTrem(2, 645, 395, 545, 295, map, 645, 545, 395, 545, 520, 295, 250);
+     */
+    @Override
+    public void imHere(int id) throws RemoteException {
+        if (id == 0) {
+
+        } else if (id == 1) {
+
+        } else if (id == 2) {
+
+        } else {
+            System.out.println("Id inválido.");
+        }
+
+    }
+
 }

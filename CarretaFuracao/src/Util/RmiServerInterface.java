@@ -20,6 +20,8 @@ public interface RmiServerInterface extends Remote{
     public boolean changeTrainVelocity(int newVeloc) throws RemoteException;
     
     public boolean sendMaxSpeed(int Maxspeed) throws RemoteException;
+    
+    public void imHere(int id) throws RemoteException;
       
     public String[] getTrainsIp() throws RemoteException;
     

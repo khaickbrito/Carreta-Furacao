@@ -5,6 +5,7 @@
  */
 package Controller;
 
+import Model.Cliente;
 import Model.Map;
 import Model.SharedZoneObserver;
 import Model.Train;
@@ -21,6 +22,7 @@ public class TremController {
     private Map map;
     private Operations operator;
     private int myid;
+    private Cliente[] clientes = new Cliente[3];
 
     public int getMyid() {
         return myid;
