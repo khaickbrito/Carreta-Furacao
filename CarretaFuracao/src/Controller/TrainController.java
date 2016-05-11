@@ -18,14 +18,14 @@ import java.util.logging.Logger;
  *
  * @author victor
  */
-public class TremController {
+public class TrainController {
 
     private Train[] trains = new Train[3];
     private Map map;
     private Operations operator;
     private int myid;
     private RmiServerInterface[] clientes = new RmiServerInterface[3];
-    private static TremController instance = new TremController();
+    private static TrainController instance = new TrainController();
 
     public int getMyid() {
         return myid;
@@ -36,8 +36,8 @@ public class TremController {
         Map.setId(myid);
     }
 
-    public TremController() {
-        map = Map.getInstance();
+    public TrainController() {
+        map = new Map(this);
         operator = new Operations(trains, this);
 //        addTrem(0, 520, 270, 295, 170, map, 270, 294, 520, 295, 270, 295, 499);
 //        addTrem(1, 395, 145, 545, 295, map, 145, 545, 270, 295, 395, 545, 375);
@@ -45,7 +45,7 @@ public class TremController {
 //        new Thread(new SharedZoneObserver(trains[0])).start();
     }
 
-    public static TremController getInstance() {
+    public static TrainController getInstance() {
         return instance;
     }
 
@@ -90,7 +90,7 @@ public class TremController {
             return clientes[idDestinatario].sendNewSpeed(id, speed);
 
         } catch (RemoteException ex) {
-            Logger.getLogger(TremController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TrainController.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
     }
@@ -107,7 +107,7 @@ public class TremController {
         try {
             return clientes[idDestinatario].sendMaxSpeed(id, newMaxSpeed);
         } catch (RemoteException ex) {
-            Logger.getLogger(TremController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TrainController.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
     }

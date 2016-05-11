@@ -5,6 +5,7 @@
  */
 package Model;
 
+import Controller.TrainController;
 import com.sun.glass.ui.Cursor;
 import java.awt.AlphaComposite;
 import java.awt.Color;
@@ -20,33 +21,30 @@ import javax.swing.JFrame;
 public class Map extends JFrame {
 
     private static Train[] trem = new Train[3];
+    private static TrainController control;
     private static Train trem1;
     private static Train trem2;
     private static Train trem3;
     private boolean podeEscrever = false;
     public static int id;
-
-    private static Map instance = new Map();
-
-    public static void setId(int id) {
-        Map.id = id;
-    }
-
-    public Map() {
+    
+    public Map(TrainController c) {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(800, 600);
+        setSize(900, 800);
         setVisible(true);
         trem[0] = null;
         trem[1] = null;
         trem[2] = null;
+        control = c;
     }
 
-    public static Map getInstance() {
-        return instance;
-    }
 
     public void addTrain(Train t) {
         trem[t.getId()] = t;
+    }
+    
+    public static void setId(int id) {
+        Map.id = id;
     }
 
     @Override

@@ -5,7 +5,7 @@
  */
 package Util;
 
-import Controller.TremController;
+import Controller.TrainController;
 import Model.Train;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,9 +18,9 @@ import java.util.List;
 public class Operations {
 
     private Train[] trains;
-    private TremController controller;
+    private TrainController controller;
     
-    public Operations(Train[] trains, TremController c) {
+    public Operations(Train[] trains, TrainController c) {
         this.trains = trains;
         controller = c;
     }
@@ -301,7 +301,7 @@ public class Operations {
         controller.changeMaxSpeedRMI(train2.getId(), train2.getId(), speed);
         
         train1.setSpeed(speed);
-        controller.changeSpeedRMI(train1.getId(), train1.getId(), 2);
+        controller.changeSpeedRMI(train1.getId(), train1.getId(), speed);
         train2.setSpeed(speed);
         controller.changeSpeedRMI(train2.getId(), train2.getId(), speed);
     }

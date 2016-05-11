@@ -96,16 +96,6 @@ public class Train {
         }
         new Thread(new TremThread(this)).start();
 
-//        campoVelocidade = new JTextField();
-//        campoVelocidade.setText("Digite");
-//        botao = new JButton();
-//        botao.setText("Alterar");
-//        botao.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                velocidade = Long.parseLong(campoVelocidade.getText());
-//            }
-//        });
     }
 
     public JButton getBotao() {
@@ -243,7 +233,7 @@ public class Train {
     }
 
     public boolean setSpeed(int newSpeed) {
-        if (newSpeed > maxSpeed) {
+        if (newSpeed <= maxSpeed) {
             return false;
         } else {
 //            this.myOldSpeed = speed;

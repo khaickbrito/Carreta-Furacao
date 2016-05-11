@@ -5,7 +5,7 @@
  */
 package Util;
 
-import Controller.TremController;
+import Controller.TrainController;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -19,13 +19,13 @@ import javax.swing.JFrame;
  *
  * @author victor
  */
-public class TremCliente extends JFrame {
+public class TrainClient extends JFrame {
 
     private static Registry reg1 = null;
     private static Registry reg2 = null;
     private static Registry selfReg;
     private static Registry serverReg;
-    private static TremController controller = TremController.getInstance();
+    private static TrainController controller = TrainController.getInstance();
 //    private static int porta = 10100;
 
     /**
@@ -114,9 +114,9 @@ public class TremCliente extends JFrame {
             controller.addRmi(trem1.getId(), trem1);
             controller.addRmi(trem2.getId(), trem2);
         } catch (RemoteException ex) {
-            Logger.getLogger(TremCliente.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TrainClient.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NotBoundException ex) {
-            Logger.getLogger(TremCliente.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TrainClient.class.getName()).log(Level.SEVERE, null, ex);
         }
       
             controller.changeSpeed(myID, 10);
@@ -129,16 +129,24 @@ public class TremCliente extends JFrame {
             if (myID != 2) {
                 controller.changeSpeedRMI(2, myID, 10);
             }
-        
-
-//        for(int i=0; i<20;i++){
-//            System.out.print("Digite o numero do trem: ");
-//            int index = scan1.nextInt();
-//            System.out.print("Digite a velocidade: ");
-//            int sp = scan2.nextInt();
-//            controller.changeSpeed(index, sp);
-////            System.out.println(controller.firstToEnter(0));
-//            System.out.println("\n\n\n\n\n\n\n");
-//        }    
+            
+//        
+            
+        for(int i=0; i<20;i++){
+            System.out.print("Digite a velocidade: ");
+            int sp = scan2.nextInt();
+            
+            controller.changeSpeed(myID, sp);
+            if (myID != 0) {
+                controller.changeSpeedRMI(0, myID, sp);
+            }
+            if (myID != 1) {
+                controller.changeSpeedRMI(1, myID, sp);
+            }
+            if (myID != 2) {
+                controller.changeSpeedRMI(2, myID, sp);
+            }
+            System.out.println("\n\n\n\n\n\n\n");
+        }    
     }
 }

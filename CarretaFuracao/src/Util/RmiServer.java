@@ -5,7 +5,7 @@
  */
 package Util;
 
-import Controller.TremController;
+import Controller.TrainController;
 import java.rmi.*;
 import java.rmi.registry.Registry;
 import java.rmi.server.*;
@@ -14,13 +14,13 @@ import java.util.logging.Logger;
 
 public class RmiServer extends UnicastRemoteObject implements RmiServerInterface {
 
-    private TremController controller;
+    private TrainController controller;
     private int myId;
 
     public RmiServer(int ID) throws RemoteException {
         // construtor padrão
         myId = ID;
-        this.controller = TremController.getInstance();
+        this.controller = TrainController.getInstance();
     }
 
     /*
