@@ -47,7 +47,10 @@ public class TremController {
 
     public void addTrem(int id, int maxX, int minX, int maxY, int minY, int x, int y, int zoneInX, int zoneInY, int zoneOutX, int zoneOutY, int distanceToZone) {
         trains[id] = new Train(id, maxX, minX, maxY, minY, map, x, y, zoneInX, zoneInY, zoneOutX, zoneOutY, distanceToZone, operator);
+        
         map.addTrain(trains[id]);
+        System.out.println("Adicionou trem");
+        map.repaint();
     }
 
     public void printFuncionou() {

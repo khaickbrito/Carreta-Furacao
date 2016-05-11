@@ -41,18 +41,7 @@ public class Map extends JFrame {
     }
     
     public void addTrain(Train t) {
-
-        for (int i = 0; i < 3; i++) {
-            if (trem[i] == null) {
-                trem[i] = t;
-
-                if (trem[2] != null) {
-                    podeEscrever = true;
-                }
-                break;
-            }
-            
-        }
+        trem[t.getId()] = t;
     }
 
     @Override
@@ -63,6 +52,7 @@ public class Map extends JFrame {
         g2d.drawRect(400, 300, 250, 250);
         g2d.drawRect(275, 175, 250, 125);
         g2d.setColor(Color.RED);
+        System.out.println("mapinha");
         if (trem[0] != null) {
             g2d.fillOval(trem[0].getX(), trem[0].getY(), 10, 10);
         }

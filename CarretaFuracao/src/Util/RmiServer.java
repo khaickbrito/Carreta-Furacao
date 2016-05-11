@@ -15,9 +15,11 @@ import java.util.logging.Logger;
 public class RmiServer extends UnicastRemoteObject implements RmiServerInterface {
 
     private TremController controller;
+    private int myId;
 
-    public RmiServer() throws RemoteException {
+    public RmiServer(int ID) throws RemoteException {
         // construtor padrão
+        myId = ID;
         this.controller = TremController.getInstance();
     }
 
@@ -65,8 +67,8 @@ public class RmiServer extends UnicastRemoteObject implements RmiServerInterface
     }
 
     @Override
-    public String[] getTrainsIp() throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int getId() throws RemoteException {
+        return myId;
     }
 
     /*

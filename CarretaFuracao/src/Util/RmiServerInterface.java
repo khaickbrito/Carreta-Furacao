@@ -23,6 +23,6 @@ public interface RmiServerInterface extends Remote{
     
     public void imHere(int id) throws RemoteException;
       
-    public String[] getTrainsIp() throws RemoteException;
+    public int getId() throws RemoteException;
     
 }
