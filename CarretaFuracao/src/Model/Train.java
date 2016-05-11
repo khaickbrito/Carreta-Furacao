@@ -270,13 +270,9 @@ public class Train {
                         
                         Train firstTrain = calculador.firstToEnter(trem);
                         trem.setSpeed(10);
-//                        
-//                        System.out.println("-------------------");
-//                        System.out.println("Velocidade maxima = " + trem.getMaxSpeed());
-//                        System.out.println("Velocidade do trem na zona = " + trem.getSpeed());
+                        
                         int timeInZone = calculador.timeInZone(trem);
-//                        System.out.println("TimeInZone = " + timeInZone);
-//                        System.out.println(firstTrain.getId());
+
                         calculador.changeSpeedsInByTime(trem, timeInZone, firstTrain);
                         
                         move();

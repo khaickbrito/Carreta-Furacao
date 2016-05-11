@@ -39,6 +39,7 @@ public class TremCliente extends JFrame {
         Scanner scan1 = new Scanner(System.in);
         Scanner scan2 = new Scanner(System.in);
         myID = scan1.nextInt();
+        controller.setMyid(myID);
         while (continua) {
             try {
                 int contador = 0;
@@ -116,8 +117,9 @@ public class TremCliente extends JFrame {
         } catch (NotBoundException ex) {
             Logger.getLogger(TremCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
 
-//        controller.changeSpeed(myID, 10);
+        
 //        for(int i=0; i<20;i++){
 //            System.out.print("Digite o numero do trem: ");
 //            int index = scan1.nextInt();

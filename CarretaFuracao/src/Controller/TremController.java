@@ -30,6 +30,7 @@ public class TremController {
 
     public void setMyid(int myid) {
         this.myid = myid;
+        Map.setId(myid);
     }
 
     public TremController() {

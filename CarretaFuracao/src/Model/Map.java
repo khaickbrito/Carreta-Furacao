@@ -24,8 +24,13 @@ public class Map extends JFrame {
     private static Train trem2;
     private static Train trem3;
     private boolean podeEscrever = false;
+    public static int id;
 
     private static Map instance = new Map();
+
+    public static void setId(int id) {
+        Map.id = id;
+    }
 
     public Map() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -39,7 +44,7 @@ public class Map extends JFrame {
     public static Map getInstance() {
         return instance;
     }
-    
+
     public void addTrain(Train t) {
         trem[t.getId()] = t;
     }
@@ -52,15 +57,27 @@ public class Map extends JFrame {
         g2d.drawRect(400, 300, 250, 250);
         g2d.drawRect(275, 175, 250, 125);
         g2d.setColor(Color.RED);
-        System.out.println("mapinha");
         if (trem[0] != null) {
+            if (id == 0) {
+                g2d.setColor(Color.blue);
+            }
             g2d.fillOval(trem[0].getX(), trem[0].getY(), 10, 10);
+            g2d.setColor(Color.red);
+
         }
         if (trem[1] != null) {
+            if (id == 1) {
+                g2d.setColor(Color.blue);
+            }
             g2d.fillOval(trem[1].getX(), trem[1].getY(), 10, 10);
+            g2d.setColor(Color.red);
         }
         if (trem[2] != null) {
+            if (id == 2) {
+                g2d.setColor(Color.blue);
+            }
             g2d.fillOval(trem[2].getX(), trem[2].getY(), 10, 10);
+            g2d.setColor(Color.red);
         }
 
     }
