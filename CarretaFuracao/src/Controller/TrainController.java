@@ -38,7 +38,7 @@ public class TrainController {
     }
 
     public TrainController() {
-        map = new Map(this,myid);
+        map = new Map(this, myid);
         operator = new Operations(trains, this);
 //        addTrem(0, 520, 270, 295, 170, map, 270, 294, 520, 295, 270, 295, 499);
 //        addTrem(1, 395, 145, 545, 295, map, 145, 545, 270, 295, 395, 545, 375);
@@ -49,11 +49,12 @@ public class TrainController {
     public static TrainController getInstance() {
         return instance;
     }
-    
-    public boolean podeIr(){
-        for(Train t : trains){
-            if(t == null)
+
+    public boolean podeIr() {
+        for (Train t : trains) {
+            if (t == null) {
                 return false;
+            }
         }
         return true;
     }
@@ -96,10 +97,11 @@ public class TrainController {
         for (Train t : trains) {
             if (t.getId() != myid) {
                 try {
-                    if(clientes[t.getId()] == null)
+                    if (clientes[t.getId()] == null) {
                         System.out.println("nulo o cliente " + t.getId());
-                        clientes[t.getId()].sendSelfInfo(myid, veloc, trains[myid].getX(), trains[myid].getY(), trains[myid].getDistanceToZone());
-                    
+                    }
+                    clientes[t.getId()].sendSelfInfo(myid, veloc, trains[myid].getX(), trains[myid].getY(), trains[myid].getDistanceToZone());
+
                 } catch (RemoteException ex) {
                     Logger.getLogger(TrainController.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -139,7 +141,10 @@ public class TrainController {
         try {
             return clientes[idDestinatario].sendMaxSpeed(id, newMaxSpeed);
         } catch (RemoteException ex) {
-            Logger.getLogger(TrainController.class.getName()).log(Level.SEVERE, null, ex);
+            trains[0].setSpeed(0);
+            trains[1].setSpeed(0);
+            trains[2].setSpeed(0);
+//            Logger.getLogger(TrainController.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
     }

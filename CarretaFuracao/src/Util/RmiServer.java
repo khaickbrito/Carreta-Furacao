@@ -6,6 +6,8 @@
 package Util;
 
 import Controller.TrainController;
+import Model.RMISSLClientSocketFactory;
+import Model.RMISSLServerSocketFactory;
 import java.rmi.*;
 import java.rmi.registry.Registry;
 import java.rmi.server.*;
@@ -17,8 +19,10 @@ public class RmiServer extends UnicastRemoteObject implements RmiServerInterface
     private TrainController controller;
     private int myId;
 
-    public RmiServer(int ID) throws RemoteException {
+    public RmiServer(int ID) throws RemoteException, Exception {
         // construtor padrão
+//        super(port, new RMISSLClientSocketFactory(),
+//              new RMISSLServerSocketFactory());
         myId = ID;
         this.controller = TrainController.getInstance();
     }
@@ -45,6 +49,7 @@ public class RmiServer extends UnicastRemoteObject implements RmiServerInterface
      */
     @Override
     public boolean sendNewSpeed(int id, int veloc) throws RemoteException {
+        System.out.println("Trem de id " + id + "mudou sua velocidade para" + veloc);
         return controller.changeSpeed(id, veloc);
     }
 

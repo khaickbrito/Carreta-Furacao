@@ -6,8 +6,13 @@
 package Util;
 
 import Controller.TrainController;
+import Model.RMISSLClientSocketFactory;
+import Model.RMISSLServerSocketFactory;
 import static java.lang.Thread.sleep;
+import java.net.InetAddress;
 import java.rmi.NotBoundException;
+import java.rmi.RMISecurityManager;
+//import java.rmi.RMISecurityManager;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -42,6 +47,10 @@ public class TrainClient extends JFrame {
         myID = CaixaDeTexto.pedirIP();
         TrainController controller = TrainController.getInstance();
         controller.setMyid(myID);
+//                if (System.getSecurityManager() == null) {
+//                    System.setProperty("java.security.policy","file://java.policy");
+//            System.setSecurityManager(new RMISecurityManager());
+//        }
         while (continua) {
             try {
                 int contador = 0;
@@ -90,6 +99,7 @@ public class TrainClient extends JFrame {
 //                }
 
             } catch (Exception ex) {
+//                ex.printStackTrace();
                 if (!continua) {
                     break;
                 }
