@@ -103,7 +103,7 @@ public class TrainController {
                     clientes[t.getId()].sendSelfInfo(myid, veloc, trains[myid].getX(), trains[myid].getY(), trains[myid].getDistanceToZone());
 
                 } catch (RemoteException ex) {
-                    Logger.getLogger(TrainController.class.getName()).log(Level.SEVERE, null, ex);
+//                    Logger.getLogger(TrainController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
@@ -124,7 +124,7 @@ public class TrainController {
             return clientes[idDestinatario].sendNewSpeed(id, speed);
 
         } catch (RemoteException ex) {
-            Logger.getLogger(TrainController.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(TrainController.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
     }

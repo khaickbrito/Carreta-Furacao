@@ -38,8 +38,8 @@ public class TrainClient extends JFrame {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        int porta = 10100, myID;
-        boolean porta1 = false, porta2 = false, porta3 = false;
+        int myID;
+//        boolean porta1 = false, porta2 = false, porta3 = false;
         int myport = 0, port1 = 0, port2 = 0;
         boolean continua = true;
         Scanner scan1 = new Scanner(System.in);
@@ -47,74 +47,111 @@ public class TrainClient extends JFrame {
         myID = CaixaDeTexto.pedirIP();
         TrainController controller = TrainController.getInstance();
         controller.setMyid(myID);
+
+        String ip1 = "";
+        int porta = 10100;
+        String ip2 = "";
+
+        try {
+            selfReg = LocateRegistry.createRegistry(porta);
+            RmiServerInterface meuObjeto = new RmiServer(myID);
+            controller.addRmi(myID, meuObjeto);
+            selfReg.rebind("RmiServer", meuObjeto);
+            if (myID == 0) {
+                controller.addTrem(0, 520, 270, 295, 170, 270, 294, 520, 295, 270, 295, 499);
+            } else if (myID == 1) {
+                controller.addTrem(1, 395, 145, 545, 295, 145, 545, 270, 295, 395, 545, 375);
+            } else if (myID == 2) {
+                controller.addTrem(2, 645, 395, 545, 295, 645, 545, 395, 545, 520, 295, 250);
+            } else {
+                System.out.println("Id inválido.");
+            }
+
+            reg1 = LocateRegistry.getRegistry(ip1, porta);
+            RmiServerInterface trem1 = (RmiServerInterface) reg1.lookup("RmiServer");
+            port1 = porta;
+            trem1.imHere(myID);
+            System.out.println("enviei meu id");
+
+            reg1 = LocateRegistry.getRegistry(ip2, porta);
+            RmiServerInterface trem2 = (RmiServerInterface) reg1.lookup("RmiServer");
+            port1 = porta;
+            trem1.imHere(myID);
+            System.out.println("enviei meu id");
+
+        } catch (RemoteException ex) {
+            Logger.getLogger(TrainClient.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(TrainClient.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
 //                if (System.getSecurityManager() == null) {
 //                    System.setProperty("java.security.policy","file://java.policy");
 //            System.setSecurityManager(new RMISecurityManager());
 //        }
-        while (continua) {
-            try {
-                int contador = 0;
-                if (myport == 0) {
-                    selfReg = LocateRegistry.createRegistry(porta);
-                    myport = porta;
-                    RmiServerInterface meuObjeto = new RmiServer(myID);
-                    controller.addRmi(myID, meuObjeto);
-                    selfReg.rebind("RmiServer", meuObjeto);
-                    if (myID == 0) {
-                        controller.addTrem(0, 520, 270, 295, 170, 270, 294, 520, 295, 270, 295, 499);
-                    } else if (myID == 1) {
-                        controller.addTrem(1, 395, 145, 545, 295, 145, 545, 270, 295, 395, 545, 375);
-                    } else if (myID == 2) {
-                        controller.addTrem(2, 645, 395, 545, 295, 645, 545, 395, 545, 520, 295, 250);
-                    } else {
-                        System.out.println("Id inválido.");
-                    }
-                }
-                if (porta == 10100) {
-                    porta = 10101;
-                } else if (porta == 10101) {
-                    porta = 10102;
-                } else if (porta == 10102) {
-                    porta = 10100;
-                }
-
-                if (myport == porta) {
-                    continue;
-                }
-
-                if (port1 == 0) {
-                    reg1 = LocateRegistry.getRegistry(porta);
-                    RmiServerInterface trem1 = (RmiServerInterface) reg1.lookup("RmiServer");
-                    System.out.println("pegou porta 1");
-                    port1 = porta;
-                    trem1.imHere(myID);
-                    System.out.println("enviei meu id");
-                }
-                if (port2 == 0 && porta != port1) {
-                    reg2 = LocateRegistry.getRegistry(porta);
-                    RmiServerInterface trem2 = (RmiServerInterface) reg2.lookup("RmiServer");
-                    trem2.imHere(myID);
-                    continua = false;
-                }
+//        while (continua) {
+//            try {
+//                int contador = 0;
+//                if (myport == 0) {
+//                    selfReg = LocateRegistry.createRegistry(porta);
+//                    myport = porta;
+//                    RmiServerInterface meuObjeto = new RmiServer(myID);
+//                    controller.addRmi(myID, meuObjeto);
+//                    selfReg.rebind("RmiServer", meuObjeto);
+//                    if (myID == 0) {
+//                        controller.addTrem(0, 520, 270, 295, 170, 270, 294, 520, 295, 270, 295, 499);
+//                    } else if (myID == 1) {
+//                        controller.addTrem(1, 395, 145, 545, 295, 145, 545, 270, 295, 395, 545, 375);
+//                    } else if (myID == 2) {
+//                        controller.addTrem(2, 645, 395, 545, 295, 645, 545, 395, 545, 520, 295, 250);
+//                    } else {
+//                        System.out.println("Id inválido.");
+//                    }
 //                }
-
-            } catch (Exception ex) {
-//                ex.printStackTrace();
-                if (!continua) {
-                    break;
-                }
-                if (myport == 0) {
-                    if (porta == 10100) {
-                        porta = 10101;
-                    } else if (porta == 10101) {
-                        porta = 10102;
-                    } else if (porta == 10102) {
-                        porta = 10100;
-                    }
-                }
-            }
-        }
-
+//                if (porta == 10100) {
+//                    porta = 10101;
+//                } else if (porta == 10101) {
+//                    porta = 10102;
+//                } else if (porta == 10102) {
+//                    porta = 10100;
+//                }
+//
+//                if (myport == porta) {
+//                    continue;
+//                }
+//
+//                if (port1 == 0) {
+//                    reg1 = LocateRegistry.getRegistry(porta);
+//                    RmiServerInterface trem1 = (RmiServerInterface) reg1.lookup("RmiServer");
+//                    System.out.println("pegou porta 1");
+//                    port1 = porta;
+//                    trem1.imHere(myID);
+//                    System.out.println("enviei meu id");
+//                }
+//                if (port2 == 0 && porta != port1) {
+//                    reg2 = LocateRegistry.getRegistry(porta);
+//                    RmiServerInterface trem2 = (RmiServerInterface) reg2.lookup("RmiServer");
+//                    trem2.imHere(myID);
+//                    continua = false;
+//                }
+////                }
+//
+//            } catch (Exception ex) {
+////                ex.printStackTrace();
+//                if (!continua) {
+//                    break;
+//                }
+//                if (myport == 0) {
+//                    if (porta == 10100) {
+//                        porta = 10101;
+//                    } else if (porta == 10101) {
+//                        porta = 10102;
+//                    } else if (porta == 10102) {
+//                        porta = 10100;
+//                    }
+//                }
+//            }
+//        }
         try {
 
             RmiServerInterface trem1 = (RmiServerInterface) reg1.lookup("RmiServer");
@@ -126,15 +163,15 @@ public class TrainClient extends JFrame {
         } catch (NotBoundException ex) {
             Logger.getLogger(TrainClient.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         try {
             sleep(2000);
-        controller.changeSpeed(myID, 10);
-        controller.changeTrainInfoRMI(myID, 10);
+            controller.changeSpeed(myID, 10);
+            controller.changeTrainInfoRMI(myID, 10);
         } catch (InterruptedException ex) {
             Logger.getLogger(TrainClient.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
 //        if (myID != 0) {
 //            controller.changeSpeedRMI(0, myID, 10);
 //        }
@@ -144,7 +181,6 @@ public class TrainClient extends JFrame {
 //        if (myID != 2) {
 //            controller.changeSpeedRMI(2, myID, 10);
 //        }
-
         for (int i = 0; i < 20; i++) {
             System.out.print("Digite a velocidade: ");
             int sp = scan2.nextInt();
