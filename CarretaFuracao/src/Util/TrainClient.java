@@ -6,6 +6,7 @@
 package Util;
 
 import Controller.TrainController;
+import static java.lang.Thread.sleep;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -115,9 +116,14 @@ public class TrainClient extends JFrame {
         } catch (NotBoundException ex) {
             Logger.getLogger(TrainClient.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
+        try {
+            sleep(2000);
         controller.changeSpeed(myID, 10);
         controller.changeTrainInfoRMI(myID, 10);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(TrainClient.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
 //        if (myID != 0) {
 //            controller.changeSpeedRMI(0, myID, 10);

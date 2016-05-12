@@ -48,8 +48,17 @@ public class TrainController {
     public static TrainController getInstance() {
         return instance;
     }
+    
+    public boolean podeIr(){
+        for(Train t : trains){
+            if(t == null)
+                return false;
+        }
+        return true;
+    }
 
     public void addRmi(int id, RmiServerInterface rmi) {
+        System.out.println("RMI ADICIONADO DO TREM " + id);
         clientes[id] = rmi;
     }
 
@@ -86,6 +95,8 @@ public class TrainController {
         for (Train t : trains) {
             if (t.getId() != myid) {
                 try {
+                    if(clientes[t.getId()] == null)
+                        System.out.println("nulo o cliente " + t.getId());
                         clientes[t.getId()].sendSelfInfo(myid, veloc, trains[myid].getX(), trains[myid].getY(), trains[myid].getDistanceToZone());
                     
                 } catch (RemoteException ex) {
