@@ -13,7 +13,9 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.colorchooser.AbstractColorChooserPanel;
 
 /**
  *
@@ -37,19 +39,20 @@ public class Map extends JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel myIdLabel;
+    private static javax.swing.JLabel myIdLabel;
     private javax.swing.JTextField speedField;
     private javax.swing.JLabel speedTrain0;
     private javax.swing.JLabel speedTrain1;
     private javax.swing.JLabel speedTrain2;
     
-    public Map(TrainController c) {
+    public Map(TrainController c, int id) {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(900, 800);
+        setSize(900, 600);
         setVisible(true);
         trem[0] = null;
         trem[1] = null;
         trem[2] = null;
+        this.id = id;
         control = c;
     
                 jPanel1 = new javax.swing.JPanel();
@@ -73,6 +76,7 @@ public class Map extends JFrame {
         JPanel trem1 = new JPanel();
         JPanel trem2 = new JPanel();
         JPanel painel = new JPanel();
+        JPanel aux = new JPanel();
         
         
         jLabel1.setText("TRAIN 0");
@@ -81,12 +85,12 @@ public class Map extends JFrame {
 
         jLabel3.setText("TRAIN 2");
 
-        jButton1.setText("CHANGE");
+        jButton1.setText("CHANGE SPEED");
 
 
         jLabel4.setText("My ID");
 
-        myIdLabel.setText("jLabel5");
+        myIdLabel.setText("00000");
 
        
 
@@ -96,35 +100,63 @@ public class Map extends JFrame {
 
         jLabel7.setText("Speed");
 
-        speedTrain0.setText("jLabel8");
+        speedTrain0.setText("0");
 
-        speedTrain1.setText("jLabel8");
+        speedTrain1.setText("0");
 
-        speedTrain2.setText("jLabel8");
+        speedTrain2.setText("0");
+        
         
         trem0.add(jLabel1);
         trem0.add(jLabel5);
         trem0.add(speedTrain0);
+        speedTrain0.setText("0");
         trem0.setBounds(20, 20, 200, 20);
         this.add(trem0);
         
         trem1.add(jLabel2);
         trem1.add(jLabel6);
         trem1.add(speedTrain1);
+        speedTrain1.setText("0");
         trem1.setBounds(20, 40, 200, 20);
         this.add(trem1);
         
         trem2.add(jLabel3);
         trem2.add(jLabel7);
         trem2.add(speedTrain2);
+        speedTrain2.setText("0");
         trem2.setBounds(20, 60, 200, 20);
         this.add(trem2);
         
-        painel.add(jLabel4);
-        
+        painel.add(jButton1);
+        speedField.setBounds(725, 60, 50, 20);
+        jLabel4.setBounds(400, 20, 30, 30);
+        myIdLabel.setBounds(435, 20, 30, 30);
+        this.add(jLabel4);
+        this.add(myIdLabel);
+        this.add(speedField);
+        painel.setBounds(650,20,200,200);
         this.add(painel);
         
+        JFrame frame = this;
         
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                int speed = Integer.parseInt(speedField.getText());
+                long maxSpeed = trem[id].getMaxSpeed();
+                long maxSystemSpeed = trem[id].getMaxSystemSpeed();
+                if(speed < 0  || speed > 10)
+                    JOptionPane.showMessageDialog(frame, "Put a correct speed value:(0-" + maxSystemSpeed + ").", "Error", JOptionPane.ERROR_MESSAGE);
+                else if(speed > maxSpeed)
+                    JOptionPane.showMessageDialog(frame, "Pierced limit. Put a correct speed value:(0-" + maxSpeed + ").", "Error", JOptionPane.ERROR_MESSAGE);
+                else{
+                    control.changeSpeed(id, speed);
+                    control.changeTrainInfoRMI(id, speed);
+                }        
+            }
+        });
+        
+        this.add(aux);
         
     }
 
@@ -138,6 +170,10 @@ public class Map extends JFrame {
         else if(id == 2){
             speedTrain2.setText(Integer.toString(speed));
         }
+    }
+    
+    public static void showId() {
+        myIdLabel.setText(Integer.toString(id));
     }
     
     public void addTrain(Train t) {

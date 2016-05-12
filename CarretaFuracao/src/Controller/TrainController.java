@@ -34,10 +34,11 @@ public class TrainController {
     public void setMyid(int myid) {
         this.myid = myid;
         Map.setId(myid);
+        Map.showId();
     }
 
     public TrainController() {
-        map = new Map(this);
+        map = new Map(this,myid);
         operator = new Operations(trains, this);
 //        addTrem(0, 520, 270, 295, 170, map, 270, 294, 520, 295, 270, 295, 499);
 //        addTrem(1, 395, 145, 545, 295, map, 145, 545, 270, 295, 395, 545, 375);
