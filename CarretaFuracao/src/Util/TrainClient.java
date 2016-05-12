@@ -38,7 +38,7 @@ public class TrainClient extends JFrame {
         boolean continua = true;
         Scanner scan1 = new Scanner(System.in);
         Scanner scan2 = new Scanner(System.in);
-        myID = scan1.nextInt();
+        myID = CaixaDeTexto.pedirIP();
         controller.setMyid(myID);
         while (continua) {
             try {
