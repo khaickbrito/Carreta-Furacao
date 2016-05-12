@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import static java.lang.Thread.sleep;
+import static java.lang.Thread.sleep;
 
 /**
  *
@@ -28,7 +29,7 @@ public class Train {
     private int zoneInY;
     private int zoneOutX;
     private int zoneOutY;
-    private Map mapa;
+    private Map map;
     private int x;
     private int y;
     private long maxSystemSpeed = 10;
@@ -80,7 +81,7 @@ public class Train {
         this.minX = minX;
         this.maxY = maxY;
         this.minY = minY;
-        this.mapa = mapa;
+        this.map = mapa;
         this.zoneInX = zoneInX;
         this.zoneInY = zoneInY;
         this.zoneOutX = zoneOutX;
@@ -166,11 +167,11 @@ public class Train {
     }
 
     public Map getMapa() {
-        return mapa;
+        return map;
     }
 
     public void setMapa(Map mapa) {
-        this.mapa = mapa;
+        this.map = mapa;
     }
 
     public int getX() {
@@ -235,6 +236,7 @@ public class Train {
         if (newSpeed <= maxSpeed && newSpeed >= 0) {
             if (!isZone) {
                 this.speed = newSpeed;
+                map.changeSpeed(id, newSpeed);
                 return true;
             }
             return false;
@@ -293,7 +295,7 @@ public class Train {
                         distanceToZone--;
                         move();
                     }
-                    mapa.repaint();
+                    map.repaint();
                 }
                 try {
                     if (speed != 0) {

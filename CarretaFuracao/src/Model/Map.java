@@ -13,6 +13,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 /**
  *
@@ -27,6 +28,20 @@ public class Map extends JFrame {
     private static Train trem3;
     private boolean podeEscrever = false;
     public static int id;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel myIdLabel;
+    private javax.swing.JTextField speedField;
+    private javax.swing.JLabel speedTrain0;
+    private javax.swing.JLabel speedTrain1;
+    private javax.swing.JLabel speedTrain2;
     
     public Map(TrainController c) {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -36,9 +51,95 @@ public class Map extends JFrame {
         trem[1] = null;
         trem[2] = null;
         control = c;
+    
+                jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        myIdLabel = new javax.swing.JLabel();
+        speedField = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        speedTrain0 = new javax.swing.JLabel();
+        speedTrain1 = new javax.swing.JLabel();
+        speedTrain2 = new javax.swing.JLabel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        
+        JPanel trem0 = new JPanel();
+        JPanel trem1 = new JPanel();
+        JPanel trem2 = new JPanel();
+        JPanel painel = new JPanel();
+        
+        
+        jLabel1.setText("TRAIN 0");
+        
+        jLabel2.setText("TRAIN 1");
+
+        jLabel3.setText("TRAIN 2");
+
+        jButton1.setText("CHANGE");
+
+
+        jLabel4.setText("My ID");
+
+        myIdLabel.setText("jLabel5");
+
+       
+
+        jLabel5.setText("Speed");
+
+        jLabel6.setText("Speed");
+
+        jLabel7.setText("Speed");
+
+        speedTrain0.setText("jLabel8");
+
+        speedTrain1.setText("jLabel8");
+
+        speedTrain2.setText("jLabel8");
+        
+        trem0.add(jLabel1);
+        trem0.add(jLabel5);
+        trem0.add(speedTrain0);
+        trem0.setBounds(20, 20, 200, 20);
+        this.add(trem0);
+        
+        trem1.add(jLabel2);
+        trem1.add(jLabel6);
+        trem1.add(speedTrain1);
+        trem1.setBounds(20, 40, 200, 20);
+        this.add(trem1);
+        
+        trem2.add(jLabel3);
+        trem2.add(jLabel7);
+        trem2.add(speedTrain2);
+        trem2.setBounds(20, 60, 200, 20);
+        this.add(trem2);
+        
+        painel.add(jLabel4);
+        
+        this.add(painel);
+        
+        
+        
     }
 
-
+    public void changeSpeed(int id, int speed){
+        if(id == 0){
+            speedTrain0.setText(Integer.toString(speed));
+        }
+        else if(id == 1){
+            speedTrain1.setText(Integer.toString(speed));
+        }
+        else if(id == 2){
+            speedTrain2.setText(Integer.toString(speed));
+        }
+    }
+    
     public void addTrain(Train t) {
         trem[t.getId()] = t;
     }
