@@ -282,11 +282,16 @@ public class Operations {
 //        trains[2].setMaxSpeed(trains[2].getMyOldMaxSpeed());
 //        trains[2].setSpeed(trains[2].getMyOldSpeed());
     }
+    
+    public void changeMyInfoRMI(int id, int speed){
+        controller.changeTrainInfoRMI(id, speed);
+    }
 
     public void changeMySpeedRMI(int id, int speed){
         for(Train t : trains){
         if(t.getId() != id)
-            controller.changeSpeedRMI(id, id, speed);
+//            controller.changeSpeedRMI(id, id, speed);
+        controller.changeTrainInfoRMI(id, speed);
         }
     }
     

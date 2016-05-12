@@ -17,6 +17,8 @@ public interface RmiServerInterface extends Remote{
     
     public boolean sendNewSpeed(int id, int veloc) throws RemoteException;
     
+    public void sendSelfInfo(int id, int veloc, int x, int y, int dist)throws RemoteException;
+    
     public boolean sendMaxSpeed(int id, int Maxspeed) throws RemoteException;
     
     public void imHere(int id) throws RemoteException;

@@ -82,6 +82,26 @@ public class TrainController {
 
     }
 
+    public void changeTrainInfoRMI(int id, int veloc) {
+        for (Train t : trains) {
+            if (t.getId() != myid) {
+                try {
+                        clientes[t.getId()].sendSelfInfo(myid, veloc, trains[myid].getX(), trains[myid].getY(), trains[myid].getDistanceToZone());
+                    
+                } catch (RemoteException ex) {
+                    Logger.getLogger(TrainController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+    }
+
+    public void changeTrainInfo(int id, int veloc, int x, int y, int dist) {
+        trains[id].setSpeed(veloc);
+        trains[id].setX(x);
+        trains[id].setY(y);
+        trains[id].setDistanceToZone(dist);
+    }
+
     /*
         Muda a velocidade de um trem pelo RMI.
      */
@@ -124,7 +144,6 @@ public class TrainController {
         Train aux = operator.firstToEnter(trains[id]);
         return (aux.getId());
     }
-    
 
 //    public void returnOldSpeed(int id, int speed) {
 //        

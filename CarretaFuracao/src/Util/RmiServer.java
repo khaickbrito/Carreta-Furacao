@@ -87,4 +87,9 @@ public class RmiServer extends UnicastRemoteObject implements RmiServerInterface
 //        controller.returnOldSpeed();
     }
 
+    @Override
+    public void sendSelfInfo(int id, int veloc, int x, int y, int dist) throws RemoteException {
+        controller.changeTrainInfo(id, veloc, x, y, dist);
+    }
+
 }

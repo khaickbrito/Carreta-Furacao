@@ -231,10 +231,13 @@ public class Train {
     }
 
     public boolean setSpeed(int newSpeed) {
-        
+
         if (newSpeed <= maxSpeed && newSpeed >= 0) {
-            this.speed = newSpeed;
-            return true;
+            if (!isZone) {
+                this.speed = newSpeed;
+                return true;
+            }
+            return false;
         } else {
             return false;
         }
@@ -273,6 +276,7 @@ public class Train {
                         calculador.changeSpeedsInByTime(trem, timeInZone, firstTrain);
 
                         move();
+                        trem.setIsZone(true);
                         distanceToZone--;
                     } else if (calculador.isInZone(trem)) {
                         if (calculador.isLeavingZone(trem)) {
@@ -281,6 +285,7 @@ public class Train {
                             calculador.returnOldSpeeds(trem, 10);
                             calculador.putDistance(trem);
                             move();
+                            trem.setIsZone(false);
                         } else {
                             move();
                         }

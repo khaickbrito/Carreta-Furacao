@@ -115,34 +115,36 @@ public class TrainClient extends JFrame {
         } catch (NotBoundException ex) {
             Logger.getLogger(TrainClient.class.getName()).log(Level.SEVERE, null, ex);
         }
-      
-            controller.changeSpeed(myID, 10);
-            if (myID != 0) {
-                controller.changeSpeedRMI(0, myID, 10);
-            }
-            if (myID != 1) {
-                controller.changeSpeedRMI(1, myID, 10);
-            }
-            if (myID != 2) {
-                controller.changeSpeedRMI(2, myID, 10);
-            }
-               
-            
-        for(int i=0; i<20;i++){
+
+        controller.changeSpeed(myID, 10);
+        controller.changeTrainInfoRMI(myID, 10);
+        
+//        if (myID != 0) {
+//            controller.changeSpeedRMI(0, myID, 10);
+//        }
+//        if (myID != 1) {
+//            controller.changeTrainInfoRMI(1, myID, 10);
+//        }
+//        if (myID != 2) {
+//            controller.changeSpeedRMI(2, myID, 10);
+//        }
+
+        for (int i = 0; i < 20; i++) {
             System.out.print("Digite a velocidade: ");
             int sp = scan2.nextInt();
-            
+
             controller.changeSpeed(myID, sp);
-            if (myID != 0) {
-                controller.changeSpeedRMI(0, myID, sp);
-            }
-            if (myID != 1) {
-                controller.changeSpeedRMI(1, myID, sp);
-            }
-            if (myID != 2) {
-                controller.changeSpeedRMI(2, myID, sp);
-            }
+            controller.changeTrainInfoRMI(myID, sp);
+//            if (myID != 0) {
+//                controller.changeSpeedRMI(0, myID, sp);
+//            }
+//            if (myID != 1) {
+//                controller.changeSpeedRMI(1, myID, sp);
+//            }
+//            if (myID != 2) {
+//                controller.changeSpeedRMI(2, myID, sp);
+//            }
             System.out.println("\n\n\n\n\n\n\n");
-        }    
+        }
     }
 }
