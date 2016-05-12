@@ -25,7 +25,7 @@ public class TrainClient extends JFrame {
     private static Registry reg2 = null;
     private static Registry selfReg;
     private static Registry serverReg;
-    private static TrainController controller = TrainController.getInstance();
+//    private static TrainController controller = TrainController.getInstance();
 //    private static int porta = 10100;
 
     /**
@@ -39,6 +39,7 @@ public class TrainClient extends JFrame {
         Scanner scan1 = new Scanner(System.in);
         Scanner scan2 = new Scanner(System.in);
         myID = CaixaDeTexto.pedirIP();
+        TrainController controller = TrainController.getInstance();
         controller.setMyid(myID);
         while (continua) {
             try {
@@ -71,9 +72,6 @@ public class TrainClient extends JFrame {
                     continue;
                 }
 
-//                System.out.println("port1"+port1);
-//                System.out.println("porta" + porta);
-//                if (myport != 0) {
                 if (port1 == 0) {
                     reg1 = LocateRegistry.getRegistry(porta);
                     RmiServerInterface trem1 = (RmiServerInterface) reg1.lookup("RmiServer");
@@ -106,7 +104,6 @@ public class TrainClient extends JFrame {
             }
         }
 
-        System.out.println("passou aqui");
         try {
 
             RmiServerInterface trem1 = (RmiServerInterface) reg1.lookup("RmiServer");
@@ -129,8 +126,7 @@ public class TrainClient extends JFrame {
             if (myID != 2) {
                 controller.changeSpeedRMI(2, myID, 10);
             }
-            
-//        
+               
             
         for(int i=0; i<20;i++){
             System.out.print("Digite a velocidade: ");

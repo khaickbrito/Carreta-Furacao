@@ -63,7 +63,6 @@ public class Train {
 //    public long getMyOldMaxSpeed() {
 //        return myOldMaxSpeed;
 //    }
-
     public int getMyDistanceInZone() {
         return myDistanceInZone;
     }
@@ -213,7 +212,6 @@ public class Train {
 //    public void setMaxSystemSpeed(long maxSystemSpeed) {
 //        this.maxSystemSpeed = maxSystemSpeed;
 //    }
-
     public long getMaxSpeed() {
         return maxSpeed;
     }
@@ -233,16 +231,16 @@ public class Train {
     }
 
     public boolean setSpeed(int newSpeed) {
-        if (newSpeed <= maxSpeed) {
-            return false;
-        } else {
-//            this.myOldSpeed = speed;
+        
+        if (newSpeed <= maxSpeed && newSpeed >= 0) {
             this.speed = newSpeed;
             return true;
+        } else {
+            return false;
         }
     }
-    
-    public void returnOldSpeeds(){
+
+    public void returnOldSpeeds() {
         this.maxSpeed = maxSystemSpeed;
     }
 
@@ -265,21 +263,20 @@ public class Train {
                         dentro da zona.
                             muda a velocidade dos outros.
                          */
-                        
+
                         Train firstTrain = calculador.firstToEnter(trem);
                         trem.setSpeed(10);
                         calculador.changeMySpeedRMI(id, 10);
-                        
-                        
+
                         int timeInZone = calculador.timeInZone(trem);
 
                         calculador.changeSpeedsInByTime(trem, timeInZone, firstTrain);
-                        
+
                         move();
                         distanceToZone--;
                     } else if (calculador.isInZone(trem)) {
                         if (calculador.isLeavingZone(trem)) {
-                       
+
 //                            calculador.changeSpeedsIn(trem, 10);
                             calculador.returnOldSpeeds(trem, 10);
                             calculador.putDistance(trem);

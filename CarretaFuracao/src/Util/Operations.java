@@ -175,7 +175,6 @@ public class Operations {
         } else if (dist2 < dist1) {
             return trem2;
         } else {
-            System.out.println("Random");
             List random = new ArrayList();
             random.add(trem1);
             random.add(trem2);
@@ -203,9 +202,6 @@ public class Operations {
     }
 
     public int calculateNewSpeed(Train trem, int time) {
-        System.out.println("Distancia para a zona do trem " + trem.getId() + " = " + trem.getDistanceToZone());
-
-        System.out.println("nova velocidade = " + trem.getDistanceToZone()/time + "porque distancia = " + trem.getDistanceToZone()+" e tempo = " + time);
         return (int)((trem.getDistanceToZone() / time)*0.7);
     }
 
